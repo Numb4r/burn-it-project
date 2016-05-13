@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script> -->
+    <script src="jquery.min.js"> </script>
+    <script src="semantic/dist/semantic.min.js"></script>
+  </head>
+  <body>
+    <!-- Inicio menu -->
+    <div class="ui inverted menu">
+      <div class="item">
+        <a href="#" ><i class="icon large sidebar"></i>Menu</a>
+      </div>
+        <!-- Inicio menu dropdow -->
+        <div class="right item ui labeled large dropdown  " >
+            <a href="#" onclick="$('.ui.dropdown').dropdown('holder');" >
+              <i class="user circular inverted red icon"></i>
+            </a>
+              <div class="menu">
+                <span class="item">
+                  <form class="ui form">
+                    <div class="field">
+                      <input name="first-name" class="ui input" placeholder="Login" type="text">
+                    </div>
+                  <div class="field">
+                    <input name="last-name" class="ui input" placeholder="Senha" type="password">
+                  </div>
+                  <button class="ui  button" name="button">Registrar</button>
+                  <button class="ui secondary button" type="submit">Logar</button>
+                </form>
+              </span>
+              </div>
+            </div>
+
+    </div>
+<!--Fim menu  -->
+  </body>
+</html>
