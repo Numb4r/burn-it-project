@@ -20,7 +20,7 @@
     </div>
       <div class="ui bottom attached pushable">
         <div style="" class="ui inverted labeled left inline vertical sidebar menu uncover ">
-          <a class="item" href="../index.php">
+          <a class="item" href="../index.html">
             <i class="home icon"></i>
             Home
           </a>
@@ -131,7 +131,7 @@
           </div>
           </a>
 
-          <a href="../index.php">
+          <a href="../index.html">
           <div class="ui  gray labeled icon button">
             <i class="fire extinguisher icon"></i>
             Cancelar
