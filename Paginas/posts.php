@@ -4,14 +4,16 @@
  * User: MVMCJ
  * Date: 26/06/2016
  * Time: 02:31
- */ ?>
+ */
+require 'core.php';
+?>
 
 <head>
     <meta charset="utf-8">
     <title>Burn it</title>
 
-    <link rel="stylesheet" href="css/posts.css">
-    <link rel="stylesheet" href="semantic/dist/semantic.css">
+    <link rel="stylesheet" href="../css/posts.css">
+    <link rel="stylesheet" href="../semantic/dist/semantic.css">
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 </head>
 
@@ -49,18 +51,8 @@
     <!-- Posts -->
     <div class="ui cards posts stackable" style="padding-left: 10px; padding-right: 10px;">
         <?php
-
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "burnit";
-
-        // Create connection
-        $conn = new mysqli($servername, $username, $password, $dbname);
-        // Check connection
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        include ('database.php');
+        OpenCom();
 
         $sql = "SELECT * FROM posts";
         $result = $conn->query($sql);
@@ -139,6 +131,6 @@
     </div>
 </div>
 
-<script src="jquery.min.js"></script>
+<script src="../scripts/jquery.min.js"></script>
 
 </body>

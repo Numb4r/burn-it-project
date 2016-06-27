@@ -1,4 +1,7 @@
 <?php
+
+require 'core.php';
+
 global $PTitle;
 global $PID;
 global $PDesc;
@@ -33,21 +36,11 @@ class Comentario
 
 if (isset($_GET['id'])) {
 
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "burnit";
-
-    // Create connection
-    $conn = new mysqli($servername, $username, $password, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include ('database.php');
+    OpenCom();
 
     $sql = "SELECT * FROM `posts` WHERE `ID`=" . $_GET["id"];
     $result = $conn->query($sql);
-
 
     if ($result->num_rows > 0) {
         // output data of each row
@@ -84,8 +77,8 @@ if (isset($_GET['id'])) {
 ?>
 
 <head>
-    <link rel="stylesheet" href="semantic/dist/semantic.css">
-    <link rel="stylesheet" href="css/post.css">
+    <link rel="stylesheet" href="../semantic/dist/semantic.css">
+    <link rel="stylesheet" href="../css/post.css">
 </head>
 
 <body>
@@ -110,7 +103,7 @@ if (isset($_GET['id'])) {
     <div class="ui segment" style="left:250px;width:600px;">
         <div class="ui left attached rail vertical menu" style="height: 313px;">
             <div class="item" align="center">
-                <img src="imgs/1e2378a2c82d2032674ee1f0a860a2cd1e3b902b.png" class="ui tiny image" alt=""/>
+                <img src="../imgs/1e2378a2c82d2032674ee1f0a860a2cd1e3b902b.png" class="ui tiny image" alt=""/>
                 <p class="ui "><?php echo $PUser; ?></p>
             </div>
             <div class="item">
@@ -130,7 +123,7 @@ if (isset($_GET['id'])) {
         <br/>
         <div class="ui right attached rail vertical menu" style="height: 265px;">
             <div class="item" align="center">
-                <img src="imgs/1e2378a2c82d2032674ee1f0a860a2cd1e3b902b.png" class="ui tiny image" alt=""/>
+                <img src="../imgs/1e2378a2c82d2032674ee1f0a860a2cd1e3b902b.png" class="ui tiny image" alt=""/>
                 <p class="ui oneline"><?php echo $PTitle ?></p>
             </div>
             <div class="item">
@@ -240,14 +233,7 @@ if (isset($_GET['id'])) {
 
             for ($x = 0; $x < $lCo; $x++) {
                 $y = $PFavor[$x];
-                echo "<div class=\"comment\">
-                                            <a class=\"avatar\">
-                            <img src=\"imgs/1e2378a2c82d2032674ee1f0a860a2cd1e3b902b.png\">
-                        </a>
-                    
-                    <div class=\"content\">
-
-                        <a class=\"author\">" . $y->GetUser() . "</a>
+                echo ">\"" . $y->GetUser() . "</a>
                         <div class=\"metadata\">
                             <span class=\"date\">Today at 5:42PM</span>
                         </div>
@@ -273,12 +259,7 @@ if (isset($_GET['id'])) {
 
             for ($x = 0; $x < $lCo; $x++) {
                 $y = $PContra[$x];
-                echo "<div class=\"comment\">
-                                            <a class=\"avatar\">
-                            <img src=\"imgs/1e2378a2c82d2032674ee1f0a860a2cd1e3b902b.png\">
-                        </a>
-                    <div class=\"content\">
-                        <a class=\"author\">" . $y->GetUser() . "</a>
+                echo ">\"" . $y->GetUser() . "</a>
                         <div class=\"metadata\">
                         <span class=\"date\">Today at 5:42PM</span>
                     </div>
@@ -296,6 +277,6 @@ if (isset($_GET['id'])) {
     <br/>
 </div>
 
-<script src="jquery.min.js"></script>
-<script src="semantic/dist/semantic.js"></script>
+<script src="../scripts/jquery.min.js"></script>
+<script src="../semantic/dist/semantic.js"></script>
 </body>
