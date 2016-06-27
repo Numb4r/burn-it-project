@@ -32,9 +32,6 @@ if (isset($_POST["uid"]) && isset($_POST["pass"])) {
     $conn->close();
 }
 
-
-
-
 ?>
 
 <form action="login.php" method="POST">

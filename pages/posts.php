@@ -5,7 +5,7 @@
  * Date: 26/06/2016
  * Time: 02:31
  */
-require 'core.php';
+require '../cfg/core.php';
 ?>
 
 <head>
@@ -51,30 +51,14 @@ require 'core.php';
     <!-- Posts -->
     <div class="ui cards posts stackable" style="padding-left: 10px; padding-right: 10px;">
         <?php
-        include ('database.php');
-        OpenCom();
+        include('../cfg/database.php');
 
+        $conn = OpenCom();
         $sql = "SELECT * FROM posts";
         $result = $conn->query($sql);
 
         function GetRandColor()
         {
-
-            /**
-             * red
-             * orange
-             * yellow
-             * olive
-             * green
-             * teal
-             * blue
-             * violet
-             * purple
-             * pink
-             * brown
-             * grey
-             * black
-             */
 
             $x = rand(0, 11);
             switch ($x) {
@@ -108,20 +92,21 @@ require 'core.php';
             // output data of each row
             while ($row = $result->fetch_assoc()) {
                 echo "<a class=\"ui " . GetRandColor() . " card\" href=\"post.php?id=" . $row["ID"] . "\">
-        <div class=\"content\">
-            <div class=\"header center aligned oneline\">" . $row["Title"] . "</div>
-            <div class=\"meta\">
-                <p class=\"category segmented\">" . $row["Description"] . "</p>
-            </div>
-        </div>
-        <div class=\"extra content\">
-            <div class=\"right floated author\">
-                <img class=\"ui avatar image\" src=\"http://semantic-ui.com/images/avatar/large/helen.jpg\">".$row["User"]."
-            </div>
-        </div>
-    </a>";
+                        <div class=\"content\">
+                            <div class=\"header center aligned oneline\">" . $row["Title"] . "</div>
+                            <div class=\"meta\">
+                                <p class=\"category segmented\">" . $row["Description"] . "</p>
+                            </div>
+                        </div>
+                        <div class=\"extra content\">
+                            <div class=\"right floated author\">
+                                <img class=\"ui avatar image\" src=\"http://semantic-ui.com/images/avatar/large/helen.jpg\">".$row["User"]."
+                            </div>
+                        </div>
+                    </a>";
             }
-        } else {
+        } else
+        {
             echo "No posts here";
         }
         $conn->close();
