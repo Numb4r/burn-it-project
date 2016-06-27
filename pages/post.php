@@ -1,6 +1,8 @@
 <?php
 
-require 'core.php';
+require_once('../cfg/core.php');
+require_once('../cfg/database.php');
+require_once('../cfg/databasefnc.php');
 
 global $PTitle;
 global $PID;
@@ -12,66 +14,17 @@ global $PComLimit;
 
 $PComLimit = 5;
 
-class Comentario
+if (isset($_GET['id']))
 {
-    var $Texto;
-    var $User;
+    $Info = GetPostInfo($_GET['id']);
+    $PTitle = $Info->GetTitle();
+    $PID = $Info->GetId();
+    $PDesc = $Info->GetDescription();
+    $PUser = $Info->GetPostOriginUser();
 
-    function Comentario($tex, $u)
-    {
-        $this->Texto = $tex;
-        $this->User = $u;
-    }
-
-    function GetUser()
-    {
-        return $this->User;
-    }
-
-    function GetCom()
-    {
-        return $this->Texto;
-    }
-}
-
-if (isset($_GET['id'])) {
-
-    include ('database.php');
-    OpenCom();
-
-    $sql = "SELECT * FROM `posts` WHERE `ID`=" . $_GET["id"];
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            $PTitle = $row["Title"];
-            $PID = $row["ID"];
-            $PDesc = $row["Description"];
-            $PUser = $row["User"];
-        }
-    } else {
-
-    }
-
-    $PTest = array();
-    $PFavor = array();
-    $PContra = array();
-
-    $sql = "SELECT * FROM `coments` WHERE `PID`=" . $_GET["id"];
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while ($row = $result->fetch_assoc()) {
-            if ($row["Favor"] == "1") {
-                array_push($PFavor, new Comentario($row["Coment"], $row["User"]));
-            } elseif ($row["Favor"] == "0") {
-                array_push($PContra, new Comentario($row["Coment"], $row["User"]));
-            }
-        }
-    }
-
-    $conn->close();
+    $Coments = GetPostComments($_GET['id']);
+    $PFavor = $Coments[0];
+    $PContra = $Coments[1];
 }
 
 ?>
@@ -229,7 +182,9 @@ if (isset($_GET['id'])) {
             <?php
 
             $lCo = count($PFavor);
-            if($lCo > $PComLimit) {$lCo = $PComLimit;}
+            if ($lCo > $PComLimit) {
+                $lCo = $PComLimit;
+            }
 
             for ($x = 0; $x < $lCo; $x++) {
                 $y = $PFavor[$x];
@@ -255,7 +210,9 @@ if (isset($_GET['id'])) {
             <h3 class="ui dividing header">Contra</h3>
             <?php
             $lCo = count($PContra);
-            if($lCo > $PComLimit) {$lCo = $PComLimit;}
+            if ($lCo > $PComLimit) {
+                $lCo = $PComLimit;
+            }
 
             for ($x = 0; $x < $lCo; $x++) {
                 $y = $PContra[$x];
