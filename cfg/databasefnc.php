@@ -13,7 +13,7 @@ class Comentario
     var $Texto;
     var $User;
 
-    function Comentario($tex, $u)
+    function __construct($tex, $u)
     {
         $this->Texto = $tex;
         $this->User = $u;
@@ -81,7 +81,7 @@ class PostInfo
 class User
 {
     public $ID;
-    public $Username;
+    public $Email;
     public $Realname;
 
     function SetID($value)
@@ -89,9 +89,9 @@ class User
         $this->ID = $value;
     }
 
-    function SetUsername($value)
+    function SetEmail($value)
     {
-        $this->Username = $value;
+        $this->Email = $value;
     }
 
     function SetRealname($value)
@@ -104,9 +104,9 @@ class User
         return $this->ID;
     }
 
-    function GetUsername()
+    function GetEmail()
     {
-        return $this->Username;
+        return $this->Email;
     }
 
     function GetRealname()
@@ -188,7 +188,29 @@ function GetUserInfo($id)
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $returnItem->SetID($row["ID"]);
-            $returnItem->SetUsername($row["Username"]);
+            $returnItem->SetEmail($row["Email"]);
+            $returnItem->SetRealname($row["Realname"]);
+        }
+    }else{
+        return null;
+    }
+    $conn->close();
+
+    return $returnItem;
+}
+
+function GetUserIdfromCredentials($u,$p)
+{
+    $conn = OpenCom();
+
+    $sql = "SELECT * FROM `users` WHERE `Email`=\"" . $u . "\" AND `Password`=\"" . $p . "\""; ;
+    $result = $conn->query($sql);
+    $returnItem = new User();
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $returnItem->SetID($row["ID"]);
+            $returnItem->SetEmail($row["Username"]);
             $returnItem->SetRealname($row["Realname"]);
         }
     }

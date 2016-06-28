@@ -41,7 +41,7 @@ if (isset($_GET['id']))
     <div class="item">
         <img src="http://etc.usf.edu/presentations/extras/letters/fridge_magnets/orange/12/b-400.png">
     </div>
-    <a href="posts.php" class="item">
+    <a href="dashboard.php" class="item">
         Postagens
     </a>
     <a class="item">
