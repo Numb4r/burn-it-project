@@ -14,8 +14,7 @@ global $PComLimit;
 
 $PComLimit = 5;
 
-if (isset($_GET['id']))
-{
+if (isset($_GET['id'])) {
     $Info = GetPostInfo($_GET['id']);
     $PTitle = $Info->GetTitle();
     $PID = $Info->GetId();

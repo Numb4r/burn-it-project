@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21f89966-4029-45f4-a5d0-46488101f751" name="Default" comment="" />
+    <list default="true" id="21f89966-4029-45f4-a5d0-46488101f751" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgs/burnitCortado.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/logout.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/register.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/imgs/BurnitCortada.png" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cfg/databasefnc.php" afterPath="$PROJECT_DIR$/cfg/databasefnc.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cfg/sessionfnc.php" afterPath="$PROJECT_DIR$/cfg/sessionfnc.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/dashboard.php" afterPath="$PROJECT_DIR$/pages/dashboard.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/login.php" afterPath="$PROJECT_DIR$/pages/login.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/post.php" afterPath="$PROJECT_DIR$/pages/post.php" />
+    </list>
     <ignored path="burn-it-project.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -22,21 +34,39 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="login.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="login.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="204">
+              <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+              <folding>
+                <element signature="e#6#87#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#script#3;n#head#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="post.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pages/post.php">
+      <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pages/register.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+            <state relative-caret-position="357">
+              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+              <folding>
+                <element signature="e#6#87#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sessionfnc.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/cfg/sessionfnc.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -45,8 +75,8 @@
       <file leaf-file-name="databasefnc.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/cfg/databasefnc.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="663">
-              <caret line="196" column="19" selection-start-line="196" selection-start-column="19" selection-end-line="196" selection-end-column="19" />
+            <state relative-caret-position="595">
+              <caret line="212" column="45" selection-start-line="212" selection-start-column="45" selection-end-line="212" selection-end-column="45" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
                 <element signature="n#Comentario#0;n#!!top" expanded="false" />
@@ -55,6 +85,18 @@
                 <element signature="n#UserExists#0;n#!!top" expanded="false" />
                 <element signature="n#GetPostInfo#0;n#!!top" expanded="false" />
                 <element signature="n#GetPostComments#0;n#!!top" expanded="false" />
+                <element signature="n#GetUserInfo#0;n#!!top" expanded="false" />
+                <marker date="1467081338986" expanded="true" signature="1708:1797" placeholder="SELECT * FRO... users" />
+                <marker date="1467081338986" expanded="true" signature="2064:2097" placeholder="SELECT * FRO... posts" />
+                <marker date="1467081338986" expanded="true" signature="2657:2693" placeholder="SELECT * FRO... coments" />
+                <marker date="1467081338986" expanded="true" signature="3226:3259" placeholder="SELECT * FRO... users" />
+                <marker date="1467081338986" expanded="true" signature="3742:3822" placeholder="SELECT * FRO... users" />
+                <marker date="1467081338986" expanded="true" signature="4352:4389" placeholder="SELECT * FRO... users" />
+                <marker date="1467081338986" expanded="true" signature="4352:4400" placeholder="SELECT * FRO... users" />
+                <marker date="1467081338986" expanded="true" signature="4352:4401" placeholder="SELECT * FRO... users" />
+                <marker date="1467081338986" expanded="true" signature="4627:4688" placeholder="INSERT INTO `users`... " />
+                <marker date="1467081338986" expanded="true" signature="4627:4705" placeholder="INSERT INTO `users`... " />
+                <marker date="1467081338986" expanded="true" signature="4627:4737" placeholder="INSERT INTO `users`... " />
               </folding>
             </state>
           </provider>
@@ -78,7 +120,6 @@
       <list>
         <option value="$PROJECT_DIR$/index-bootstrap.php" />
         <option value="$PROJECT_DIR$/scripts/jumbotron.css" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/scripts/init.js" />
         <option value="$PROJECT_DIR$/scripts/posts.js" />
         <option value="$PROJECT_DIR$/css/cover.css" />
@@ -94,9 +135,14 @@
         <option value="$PROJECT_DIR$/Paginas/core.php" />
         <option value="$PROJECT_DIR$/Paginas/database.php" />
         <option value="$PROJECT_DIR$/Paginas/login.php" />
-        <option value="$PROJECT_DIR$/pages/post.php" />
         <option value="$PROJECT_DIR$/cfg/database.php" />
         <option value="$PROJECT_DIR$/pages/posts.php" />
+        <option value="$PROJECT_DIR$/pages/post.php" />
+        <option value="$PROJECT_DIR$/pages/logout.php" />
+        <option value="$PROJECT_DIR$/pages/dashboard.php" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/cfg/sessionfnc.php" />
+        <option value="$PROJECT_DIR$/pages/register.php" />
         <option value="$PROJECT_DIR$/cfg/databasefnc.php" />
         <option value="$PROJECT_DIR$/pages/login.php" />
       </list>
@@ -234,6 +280,20 @@
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="imgs" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="burn-it-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="burn-it-project" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="cfg" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
@@ -259,7 +319,7 @@
       <recent name="C:\Users\MVMCJ\Documents\GitHub\burn-it-project\scripts" />
     </key>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.post.php">
+  <component name="RunManager" selected="JavaScript Debug.index.html">
     <configuration default="false" name="index.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/burn-it-project/index.html">
       <method />
     </configuration>
@@ -344,11 +404,11 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.post.php" />
-        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.login.php" />
-        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.posts.php" />
-        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.comentario.php" />
-        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.index.html" />
+        <item index="1" class="java.lang.String" itemvalue="JavaScript Debug.post.php" />
+        <item index="2" class="java.lang.String" itemvalue="JavaScript Debug.login.php" />
+        <item index="3" class="java.lang.String" itemvalue="JavaScript Debug.posts.php" />
+        <item index="4" class="java.lang.String" itemvalue="JavaScript Debug.comentario.php" />
       </list>
     </recent_temporary>
   </component>
@@ -371,12 +431,12 @@
       <workItem from="1466998205134" duration="310000" />
       <workItem from="1467053040675" duration="4138000" />
       <workItem from="1467061554154" duration="99000" />
-      <workItem from="1467075529073" duration="2000" />
+      <workItem from="1467075529073" duration="5844000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47368000" />
+    <option name="totallyTimeSpent" value="53210000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -388,27 +448,27 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="1" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26432666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26432666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40677965" sideWeight="0.50277776" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4061196" sideWeight="0.49722221" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="PHP-CGI Server" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.40668523" sideWeight="0.49722221" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -449,26 +509,67 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/pages/login.php">
+    <entry file="file://$PROJECT_DIR$/pages/post.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="0" selection-start-line="33" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="16" column="25" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/post.php">
+    <entry file="file://$PROJECT_DIR$/pages/logout.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
+        <state relative-caret-position="170">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="36" column="40" selection-start-line="36" selection-start-column="40" selection-end-line="36" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/dashboard.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="43" column="47" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#body#0;n#!!top" expanded="true" />
+            <element signature="n#div#2;n#body#0;n#!!top" expanded="false" />
+            <marker date="1467077541730" expanded="true" signature="1554:1573" placeholder="SELECT * FRO... posts" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/register.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cfg/sessionfnc.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="18" column="30" selection-start-line="18" selection-start-column="30" selection-end-line="18" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cfg/databasefnc.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="663">
-          <caret line="196" column="19" selection-start-line="196" selection-start-column="19" selection-end-line="196" selection-end-column="19" />
+        <state relative-caret-position="595">
+          <caret line="212" column="45" selection-start-line="212" selection-start-column="45" selection-end-line="212" selection-end-column="45" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
             <element signature="n#Comentario#0;n#!!top" expanded="false" />
@@ -477,6 +578,31 @@
             <element signature="n#UserExists#0;n#!!top" expanded="false" />
             <element signature="n#GetPostInfo#0;n#!!top" expanded="false" />
             <element signature="n#GetPostComments#0;n#!!top" expanded="false" />
+            <element signature="n#GetUserInfo#0;n#!!top" expanded="false" />
+            <marker date="1467081338986" expanded="true" signature="1708:1797" placeholder="SELECT * FRO... users" />
+            <marker date="1467081338986" expanded="true" signature="2064:2097" placeholder="SELECT * FRO... posts" />
+            <marker date="1467081338986" expanded="true" signature="2657:2693" placeholder="SELECT * FRO... coments" />
+            <marker date="1467081338986" expanded="true" signature="3226:3259" placeholder="SELECT * FRO... users" />
+            <marker date="1467081338986" expanded="true" signature="3742:3822" placeholder="SELECT * FRO... users" />
+            <marker date="1467081338986" expanded="true" signature="4352:4389" placeholder="SELECT * FRO... users" />
+            <marker date="1467081338986" expanded="true" signature="4352:4400" placeholder="SELECT * FRO... users" />
+            <marker date="1467081338986" expanded="true" signature="4352:4401" placeholder="SELECT * FRO... users" />
+            <marker date="1467081338986" expanded="true" signature="4627:4688" placeholder="INSERT INTO `users`... " />
+            <marker date="1467081338986" expanded="true" signature="4627:4705" placeholder="INSERT INTO `users`... " />
+            <marker date="1467081338986" expanded="true" signature="4627:4737" placeholder="INSERT INTO `users`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#3;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

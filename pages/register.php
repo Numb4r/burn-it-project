@@ -2,11 +2,12 @@
 /**
  * Created by PhpStorm.
  * User: MVMCJ
- * Date: 26/06/2016
- * Time: 23:12
+ * Date: 27/06/2016
+ * Time: 22:55
  */
 
 require_once '../cfg/core.php';
+require_once '../cfg/sessionfnc.php';
 require_once '../cfg/database.php';
 require_once '../cfg/databasefnc.php';
 
@@ -14,18 +15,18 @@ if (isset($_SESSION["UserID"])) {
     header("Location: dashboard.php");
 }
 
-if (isset($_POST["email"]) && isset($_POST["password"])) {
-    $user = GetUserIdfromCredentials($_POST["email"], $_POST["password"]);
+if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])) {
 
-    if (isset($user) && !empty($user->GetID())) {
-        $_SESSION["UserID"] = $user->GetID();
-        header("Location: dashboard.php");
-    } else {
-        echo 'U & P Wrong';
+    if(!IsUserRegistered($_POST["email"])) {
+        RegisterUser($_POST["email"], $_POST["password"], $_POST["name"]);
+        header("Location: login.php");
+    }else{
+        echo 'ja registrado';
     }
 }
 
 ?>
+
 
 <html>
 <head>
@@ -47,7 +48,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
             background-image: url('http://semantic-ui.com/images/backgrounds/6.jpg');
             background-position-x: 100%;
             background-position-y: 90%;
-            overflow-y:hidden;
+            overflow-y: hidden;
         }
 
         body > .grid {
@@ -101,14 +102,13 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         ;
     </script>
 </head>
-
 <body>
 
 <div class="ui middle aligned center aligned grid">
     <div class="column">
         <h2 class="ui image header">
             <div class="content" style="text-shadow: 0 1px 3px rgba(0,0,0,.5); color: #fff4e4">
-                Log-in
+                Registrar-se
             </div>
         </h2>
         <form class="ui large form" method="POST" action="">
@@ -116,6 +116,12 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
+                        <input type="text" name="name" placeholder="Nome">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="mail icon"></i>
                         <input type="text" name="email" placeholder="E-mail">
                     </div>
                 </div>
@@ -125,14 +131,14 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                         <input type="password" name="password" placeholder="Senha">
                     </div>
                 </div>
-                <div class="ui fluid large red submit button">Login</div>
+                <div class="ui fluid large red submit button">Registrar</div>
             </div>
 
             <div class="ui error message"></div>
         </form>
 
         <div class="ui message">
-            Novo por aqui? <a href="register.php">Registre-se</a>
+            Já possui uma conta? <a href="login.php">Logar-se</a>
         </div>
     </div>
 </div>

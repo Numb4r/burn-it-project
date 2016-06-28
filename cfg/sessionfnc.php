@@ -16,6 +16,10 @@ function IsLogged(){
     return false;
 }
 
+function RegisterUserInSession($uid){
+    $_SESSION[$uid];
+}
+
 function GetCurrentUserID(){
     if(IsLogged()){return $_SESSION["UserID"];}
     else{

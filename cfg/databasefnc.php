@@ -191,7 +191,7 @@ function GetUserInfo($id)
             $returnItem->SetEmail($row["Email"]);
             $returnItem->SetRealname($row["Realname"]);
         }
-    }else{
+    } else {
         return null;
     }
     $conn->close();
@@ -199,22 +199,55 @@ function GetUserInfo($id)
     return $returnItem;
 }
 
-function GetUserIdfromCredentials($u,$p)
+function GetUserIdfromCredentials($u, $p)
 {
     $conn = OpenCom();
 
-    $sql = "SELECT * FROM `users` WHERE `Email`=\"" . $u . "\" AND `Password`=\"" . $p . "\""; ;
+    $sql = "SELECT * FROM `users` WHERE `Email`=\"" . $u . "\" AND `Password`=\"" . $p . "\"";;
     $result = $conn->query($sql);
     $returnItem = new User();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             $returnItem->SetID($row["ID"]);
-            $returnItem->SetEmail($row["Username"]);
+            $returnItem->SetEmail($row["Email"]);
             $returnItem->SetRealname($row["Realname"]);
         }
     }
     $conn->close();
 
     return $returnItem;
+}
+
+function IsUserRegistered($u)
+{
+    $conn = OpenCom();
+
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+    }
+
+    $sql = "SELECT * FROM `users` WHERE `Email`='" . $u . "'";
+    $result = $conn->query($sql);
+
+    $conn->close();
+
+    if ($result->num_rows > 0)
+        return true;
+    else
+        return false;
+}
+
+function RegisterUser($email, $pass, $name)
+{
+    $conn = OpenCom();
+
+    $sql = "INSERT INTO `users`(`Email`, `Password`, `Realname`) VALUES ('" . $email . "','" . $pass . "','" . $name . "')";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
 }
