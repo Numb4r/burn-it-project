@@ -5,14 +5,16 @@
  * Date: 26/06/2016
  * Time: 02:31
  */
-require '../cfg/core.php';
+require_once '../cfg/core.php';
+require_once '../cfg/sessionfnc.php';
+require_once '../cfg/databasefnc.php';
 ?>
 
 <head>
     <meta charset="utf-8">
     <title>Burn it</title>
 
-    <link rel="stylesheet" href="../css/posts.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <link rel="stylesheet" href="../semantic/dist/semantic.css">
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 </head>
@@ -30,25 +32,35 @@ require '../cfg/core.php';
         }
     }
 </script>
-<div class="container">
-    <!-- Header -->
-    <div class="ui stackable menu">
-        <div class="item">
-            <img src="http://etc.usf.edu/presentations/extras/letters/fridge_magnets/orange/12/b-400.png">
+<div class="pusher">
+    <div class="ui inverted vertical masthead center aligned segment">
+        <div class="container">
+            <!-- Header -->
+            <div class="ui large secondary inverted pointing menu">
+                <a class="item active">
+                    Postagens
+                </a>
+                <a class="item">
+                    Mensagens
+                </a>
+                <a class="item">
+                    Amigos
+                </a>
+
+                <div class="item right">
+                    Bem vindo de volta, <?php
+                    $u = GetUserInfo(GetCurrentUserID());
+                    echo $u->GetRealname();
+                    ?>
+                </div>
+                <a class="ui item">Sair</a>
+            </div>
+
+
+
         </div>
-        <a class="item active">
-            Postagens
-        </a>
-        <a class="item">
-            Mensagens
-        </a>
-        <a class="item">
-            Amigos
-        </a>
     </div>
-
-
-    <!-- Posts -->
+    <div class="ui divider"></div>
     <div class="ui cards posts stackable" style="padding-left: 10px; padding-right: 10px;">
         <?php
         include('../cfg/database.php');
@@ -100,13 +112,12 @@ require '../cfg/core.php';
                         </div>
                         <div class=\"extra content\">
                             <div class=\"right floated author\">
-                                <img class=\"ui avatar image\" src=\"http://semantic-ui.com/images/avatar/large/helen.jpg\">".$row["User"]."
+                                <img class=\"ui avatar image\" src=\"http://semantic-ui.com/images/avatar/large/helen.jpg\">" . $row["User"] . "
                             </div>
                         </div>
                     </a>";
             }
-        } else
-        {
+        } else {
             echo "No posts here";
         }
         $conn->close();
