@@ -111,7 +111,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 Log-in
             </div>
         </h2>
-        <form class="ui large form" method="POST" action="">
+        <form class="ui large form" method="POST" action="" autocomplete="off">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">

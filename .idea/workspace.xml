@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21f89966-4029-45f4-a5d0-46488101f751" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/imgs/burnitCortado.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/logout.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pages/register.php" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/imgs/BurnitCortada.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cfg/databasefnc.php" afterPath="$PROJECT_DIR$/cfg/databasefnc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cfg/sessionfnc.php" afterPath="$PROJECT_DIR$/cfg/sessionfnc.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/dashboard.php" afterPath="$PROJECT_DIR$/pages/dashboard.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/login.php" afterPath="$PROJECT_DIR$/pages/login.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/post.php" afterPath="$PROJECT_DIR$/pages/post.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pages/register.php" afterPath="$PROJECT_DIR$/pages/register.php" />
     </list>
     <ignored path="burn-it-project.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -37,8 +28,8 @@
       <file leaf-file-name="login.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pages/login.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+            <state relative-caret-position="510">
+              <caret line="113" column="77" selection-start-line="113" selection-start-column="77" selection-end-line="113" selection-end-column="77" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
                 <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
@@ -52,11 +43,16 @@
       <file leaf-file-name="register.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/pages/register.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+            <state relative-caret-position="204">
+              <caret line="113" column="78" selection-start-line="113" selection-start-column="78" selection-end-line="113" selection-end-column="78" />
               <folding>
                 <element signature="e#6#87#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="n#script#3;n#head#0;n#html#0;n#!!top" expanded="false" />
                 <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1467082426758" expanded="true" signature="618:671" placeholder="..." />
+                <marker date="1467082426758" expanded="true" signature="625:671" placeholder="..." />
+                <marker date="1467082426758" expanded="true" signature="1210:1246" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -142,8 +138,8 @@
         <option value="$PROJECT_DIR$/pages/dashboard.php" />
         <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/cfg/sessionfnc.php" />
-        <option value="$PROJECT_DIR$/pages/register.php" />
         <option value="$PROJECT_DIR$/cfg/databasefnc.php" />
+        <option value="$PROJECT_DIR$/pages/register.php" />
         <option value="$PROJECT_DIR$/pages/login.php" />
       </list>
     </option>
@@ -431,12 +427,12 @@
       <workItem from="1466998205134" duration="310000" />
       <workItem from="1467053040675" duration="4138000" />
       <workItem from="1467061554154" duration="99000" />
-      <workItem from="1467075529073" duration="5844000" />
+      <workItem from="1467075529073" duration="6971000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53210000" />
+    <option name="totallyTimeSpent" value="54337000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -449,7 +445,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26432666" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3286908" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -547,17 +543,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/register.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
-          <folding>
-            <element signature="e#6#87#0#PHP" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cfg/sessionfnc.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -594,10 +579,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pages/login.php">
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/block.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="230">
+          <caret line="228" column="16" selection-start-line="228" selection-start-column="16" selection-end-line="228" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/register.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="21" column="42" selection-start-line="21" selection-start-column="42" selection-end-line="21" selection-end-column="42" />
+          <caret line="113" column="78" selection-start-line="113" selection-start-column="78" selection-end-line="113" selection-end-column="78" />
+          <folding>
+            <element signature="e#6#87#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#script#3;n#head#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#div#0;n#h2#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1467082426758" expanded="true" signature="618:671" placeholder="..." />
+            <marker date="1467082426758" expanded="true" signature="625:671" placeholder="..." />
+            <marker date="1467082426758" expanded="true" signature="1210:1246" placeholder="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pages/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="113" column="77" selection-start-line="113" selection-start-column="77" selection-end-line="113" selection-end-column="77" />
           <folding>
             <element signature="e#6#87#0#PHP" expanded="true" />
             <element signature="n#style#0;n#head#0;n#html#0;n#!!top" expanded="false" />

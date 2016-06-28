@@ -17,11 +17,11 @@ if (isset($_SESSION["UserID"])) {
 
 if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])) {
 
-    if(!IsUserRegistered($_POST["email"])) {
+    if (!IsUserRegistered($_POST["email"])) {
         RegisterUser($_POST["email"], $_POST["password"], $_POST["name"]);
         header("Location: login.php");
-    }else{
-        echo 'ja registrado';
+    } else {
+        echo "Já registrado";
     }
 }
 
@@ -111,24 +111,24 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])
                 Registrar-se
             </div>
         </h2>
-        <form class="ui large form" method="POST" action="">
+        <form class="ui large form" autocomplete="off" method="POST" action="">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="name" placeholder="Nome">
+                        <input type="text" name="name" placeholder="Nome" value="" autocomplete="off">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="mail icon"></i>
-                        <input type="text" name="email" placeholder="E-mail">
+                        <input type="text" name="email" placeholder="E-mail" value="" autocomplete="off">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Senha">
+                        <input type="password" name="password" placeholder="Senha" value="" autocomplete="off">
                     </div>
                 </div>
                 <div class="ui fluid large red submit button">Registrar</div>
@@ -142,6 +142,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])
         </div>
     </div>
 </div>
+
 
 </body>
 
