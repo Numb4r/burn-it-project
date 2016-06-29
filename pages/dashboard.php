@@ -8,32 +8,69 @@
 require_once '../cfg/core.php';
 require_once '../cfg/sessionfnc.php';
 require_once '../cfg/databasefnc.php';
+
+if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['tags'])) {
+    $NPTitle = $_POST['title'];
+    $NPDesc = $_POST['desc'];
+    $NPTags = $_POST['tags'];
+
+    if (!empty($NPTitle) && !empty($NPDesc) && !empty($NPTags)) {
+        $cUser = GetUserInfo(GetCurrentUserID());
+        RegisterPost($NPTitle, $NPDesc, $NPTags, $cUser->GetRealname());
+    }
+
+    header("Location: dashboard.php");
+}
+
+
 ?>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
     <title>Burn it</title>
 
-    <link rel="stylesheet" href="../css/dashboard.css">
+
     <link rel="stylesheet" href="../semantic/dist/semantic.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
     <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
 </head>
 
 <body onresize="">
 
-<div class="ui inverted vertical masthead center aligned segment" style="padding-top: 0px;">
-    <div class="container" >
-        <!-- Header -->
-        <div class="ui large secondary inverted pointing menu stackable" >
-            <a class="item active">
-                Postagens
+<div class="ui large top fixed hidden menu" style="display: none;">
+
+    <a class="item disabled" style="font-family: 'Lobster', cursive;">
+        Burn-it
+    </a>
+    <a class="item active">
+        Postagens
+    </a>
+    <a class="item">
+        Mensagens
+    </a>
+    <a class="item">
+        Amigos
+    </a>
+</div>
+
+<div class="ui vertical inverted sidebar menu">
+    <a class="item active">Postagens</a>
+    <a class="item">Mensagens</a>
+    <a class="item">Amigos</a>
+</div>
+
+<div class="ui inverted vertical masthead center aligned segment landing-image" style="padding-top: 0px;">
+    <div class="container">
+        <div class="ui large secondary inverted pointing menu" style="border-color: transparent">
+            <a class="toc item">
+                <i class="sidebar icon"></i>
             </a>
-            <a class="item">
-                Mensagens
-            </a>
-            <a class="item">
-                Amigos
-            </a>
+            <a class="item active">Postagens</a>
+            <a class="item">Mensagens</a>
+            <a class="item">Amigos</a>
 
             <div class="item right">
                 Bem vindo de volta, <?php
@@ -41,10 +78,63 @@ require_once '../cfg/databasefnc.php';
                 echo $u->GetRealname();
                 ?>
             </div>
-            <a class="ui item" href="logout.php">Sair</a>
+            <a class="item" href="logout.php">Sair</a>
         </div>
 
         <img class="ui medium image centered" src="../imgs/burnitCortadoBranco.png">
+    </div>
+</div>
+
+<div class="ui divider" style="padding-bottom: 0px; padding-top: 0px;"></div>
+
+<div align="center" style="padding-top: 10px; padding-bottom: 10px; ">
+    <button class="ui positive basic button switch icon" id="postbtn" data-tooltip="Adicionar uma discussão"><i
+            class="add icon"></i>
+        Adicionar
+    </button>
+
+    <div class="ui selection dropdown">
+        <input type="hidden" name="gender">
+        <i class="dropdown icon"></i>
+        <div class="default text">Ordem</div>
+        <div class="menu">
+            <div class="item" data-value="1">De postagem</div>
+            <div class="item" data-value="0">Por categoria</div>
+        </div>
+    </div>
+</div>
+
+<div class="ui middle aligned center aligned grid" id="postform" style="display: none;">
+    <div class="column">
+        <form class="ui large form" method="POST" action="" autocomplete="off">
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="title" placeholder="Título">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="file text icon"></i>
+                        <input type="text" name="desc" placeholder="Descrição">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="tags icon"></i>
+                        <input type="text" name="tags" placeholder="Tags">
+                    </div>
+                </div>
+                <div class="ui buttons">
+                    <div class="ui button switch">Cancelar</div>
+                    <div class="or" data-text="ou"></div>
+                    <button class="ui positive button" type="submit">Postar</button>
+                </div>
+            </div>
+
+            <div class="ui error message"></div>
+        </form>
     </div>
 </div>
 
@@ -55,7 +145,7 @@ require_once '../cfg/databasefnc.php';
     include('../cfg/database.php');
 
     $conn = OpenCom();
-    $sql = "SELECT * FROM posts";
+    $sql = "SELECT * FROM posts ORDER BY ID DESC";
     $result = $conn->query($sql);
 
     function GetRandColor()
@@ -89,7 +179,6 @@ require_once '../cfg/databasefnc.php';
     }
 
     if ($result->num_rows > 0) {
-        // output data of each row
         while ($row = $result->fetch_assoc()) {
             echo "<a class=\"ui " . GetRandColor() . " card\" href=\"post.php?id=" . $row["ID"] . "\">
                         <div class=\"content\">
@@ -115,5 +204,7 @@ require_once '../cfg/databasefnc.php';
 </div>
 
 <script src="../scripts/jquery.min.js"></script>
+<script src="../semantic/dist/semantic.js"></script>
+<script src="../scripts/dashboard.js"></script>
 
 </body>

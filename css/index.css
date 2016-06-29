@@ -1,48 +1,28 @@
-p {
-    height: 100px;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 5;
-    -webkit-box-orient: vertical;
-}
-
-.landing-image {
-    background-image: url("../imgs/backgrounds/6.jpg") !important;
-    background-size: cover !important;
-}
-
-.column {
-    max-width: 450px;
-}
-
-.oneline {
-    width: auto;
-    overflow: hidden;
-    display: -webkit-box;
-    text-overflow: ellipsis;
-}
 
 .hidden.menu {
     display: none;
 }
 
 .masthead.segment {
-    min-height: 500px;
+    min-height: 700px;
     padding: 1em 0em;
-
 }
+
 .masthead .logo.item img {
     margin-right: 1em;
 }
+
 .masthead .ui.menu .ui.button {
     margin-left: 0.5em;
 }
+
 .masthead h1.ui.header {
     margin-top: 3em;
     margin-bottom: 0em;
     font-size: 4em;
     font-weight: normal;
 }
+
 .masthead h2 {
     font-size: 1.7em;
     font-weight: normal;
@@ -51,19 +31,24 @@ p {
 .ui.vertical.stripe {
     padding: 8em 0em;
 }
+
 .ui.vertical.stripe h3 {
     font-size: 2em;
 }
+
 .ui.vertical.stripe .button + h3,
 .ui.vertical.stripe p + h3 {
     margin-top: 3em;
 }
+
 .ui.vertical.stripe .floated.image {
     clear: both;
 }
+
 .ui.vertical.stripe p {
     font-size: 1.33em;
 }
+
 .ui.vertical.stripe .horizontal.divider {
     margin: 3em 0em;
 }
@@ -71,6 +56,7 @@ p {
 .quote.stripe.segment {
     padding: 0em;
 }
+
 .quote.stripe.segment .grid .column {
     padding-top: 5em;
     padding-bottom: 5em;
@@ -84,14 +70,22 @@ p {
     display: none;
 }
 
+.landing-image {
+    background-image: url("../imgs/backgrounds/6.jpg") !important;
+    background-size: cover !important;
+}
+
+.shadowText {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+}
+
 @media only screen and (max-width: 700px) {
     .ui.fixed.menu {
         display: none !important;
     }
 
     .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu
-    {
+    .secondary.pointing.menu .menu {
         display: none;
     }
 

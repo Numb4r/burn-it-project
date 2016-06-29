@@ -244,9 +244,18 @@ function RegisterUser($email, $pass, $name)
 
     $sql = "INSERT INTO `users`(`Email`, `Password`, `Realname`) VALUES ('" . $email . "','" . $pass . "','" . $name . "')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "New record created successfully";
-    } else {
+    if ($conn->query($sql) === false) {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+    $conn->close();
+}
+
+function RegisterPost($title,$desc,$tags,$user)
+{
+    $conn = OpenCom();
+
+    $sql = "INSERT INTO `posts`(`Title`, `Description`, `User`, `Tags`) VALUES ('".$title."','".$desc."','".$user."','".$tags."')";
+    if ($conn->query($sql) === false) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }
     $conn->close();
