@@ -9,14 +9,22 @@
 require_once '../cfg/core.php';
 
 function IsLogged(){
-    if(isset($_SESSION["UserID"]) && GetUserInfo($_SESSION["UserID"]) != null){
+    if(isset($_SESSION["UserID"]))
+    {
+        if(GetUserInfo($_SESSION["UserID"]) != null){
         return true;
+        }
+        else{
+            session_destroy();
+        }
+        }
     }
 
     return false;
 }
 
-function RegisterUserInSession($uid){
+function RegisterUserInSession($uid)
+{
     $_SESSION[$uid];
 }
 
