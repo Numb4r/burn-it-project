@@ -3,6 +3,8 @@
  */
 $(document)
     .ready(function () {
+        $("#iMasthead").addClass("landing-image"+Math.floor((Math.random() * 16) + 1));
+        
         $('.masthead')
             .visibility({
                 once: false,

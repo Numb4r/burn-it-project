@@ -1,47 +1,48 @@
 /**
- * Created by MVMCJ on 28/06/2016.
+ * Created by MVMCJ on 01/07/2016.
  */
 
-
-function submit()
-{
+function submit() {
     $('.ui.form').form('validate form');
     if ($('.ui.form').form('is valid')) {
-
-        $("#loginBTN").addClass("loading");
-        $.post("../api/login.php",
+        $("#registerBTN").addClass("loading");
+        $.post("../api/register.php",
             {
-                User: $("#emailinput").val(),
-                Pass: $("#passinput").val()
+                User: $("#regEmail").val(),
+                Pass: $("#regPass").val(),
+                Realname: $("#regName").val()
             },
             function (data, status) {
-
-                $("#loginBTN").removeClass("loading");
                 if (data == "0") {
                     $(".ui.form").form('add errors', {
                         email: "O pedido de POST falhou.",
                     });
                 } else if (data == "1") {
-                    window.location.href = "../pages/dashboard.php";
+                    window.location.href = "../pages/login.php";
                 }
                 else if (data == "2") {
                     $(".ui.form").form('add errors', {
-                        email: "A combinação de usuário e senha é inexistente nos nossos servidores.",
+                        email: "Este email já é cadastrado.",
                     });
                     $(".ui.form").form('clear');
                 }
 
-
+                $("#registerBTN").removeClass("loading");
             });
     }
 }
 
-$("#loginBTN").click(function () {
-    submit();
-});
-
 $(document)
     .ready(function () {
+
+        $(document).on("keypress", "form", function(event) {
+
+            if(event.keyCode == 13){
+                submit();
+            }
+            return event.keyCode;
+        });
+
         $('.ui.form')
             .form({
                 fields: {
@@ -55,6 +56,15 @@ $(document)
                             {
                                 type: 'email',
                                 prompt: 'Por favor insira um e-mail válido'
+                            }
+                        ]
+                    },
+                    name: {
+                        identifier: 'name',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Por favor insira um nome'
                             }
                         ]
                     },
@@ -75,13 +85,9 @@ $(document)
                 keyboardShortcuts: false
             })
         ;
-
-        $(document).on("keypress", "form", function(event) {
-
-            if(event.keyCode == 13){
-                submit();
-            }
-            return event.keyCode;
-        });
     })
 ;
+
+$("#registerBTN").click(function () {
+    submit();
+});

@@ -6,24 +6,11 @@
  * Time: 23:12
  */
 
-require_once '../cfg/core.php';
-require_once '../cfg/database.php';
 require_once '../cfg/databasefnc.php';
+require_once '../cfg/cookiesfnc.php';
+require_once '../cfg/userfnc.php';
 
-if (isset($_SESSION["UserID"])) {
-    header("Location: dashboard.php");
-}
-
-if (isset($_POST["email"]) && isset($_POST["password"])) {
-    $user = GetUserIdfromCredentials($_POST["email"], $_POST["password"]);
-
-    if (isset($user) && !empty($user->GetID())) {
-        $_SESSION["UserID"] = $user->GetID();
-        header("Location: dashboard.php");
-    } else {
-        echo 'U & P Wrong';
-    }
-}
+UserIsNotLoggedIn();
 
 ?>
 
@@ -39,9 +26,6 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
 
     <script src="../scripts/jquery.min.js"></script>
     <script src="../semantic/dist/semantic.js"></script>
-    <script src="../scripts/login.js"></script>
-
-
 </head>
 
 <body>
@@ -53,21 +37,21 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
                 Log-in
             </div>
         </h2>
-        <form class="ui large form" method="POST" action="" autocomplete="off">
+        <form class="ui large form" onkeypress="return event.keyCode != 13;" autocomplete="off">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="email" name="email" placeholder="E-mail">
+                        <input type="email" name="email" placeholder="E-mail" id="emailinput">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Senha">
+                        <input type="password" name="password" placeholder="Senha" id="passinput">
                     </div>
                 </div>
-                <div class="ui fluid large red submit button">Login</div>
+                <div class="ui fluid large basic green button" id="loginBTN">Login</div>
             </div>
 
             <div class="ui error message"></div>
@@ -78,7 +62,7 @@ if (isset($_POST["email"]) && isset($_POST["password"])) {
         </div>
     </div>
 </div>
-
+<script src="../scripts/login.js"></script>
 </body>
 
 </html>

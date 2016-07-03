@@ -6,7 +6,7 @@
  * Time: 22:29
  */
 
-require_once '../cfg/core.php';
-session_destroy();
-header ("Location: ../index.php");
+setcookie("BUID", "", time()-3600, "/");
+
+header ("Location: index.php");
 

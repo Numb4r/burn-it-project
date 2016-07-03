@@ -10,23 +10,13 @@ require_once 'database.php';
 
 class Comentario
 {
-    var $Texto;
-    var $User;
+    public $Texto;
+    public $User;
 
     function __construct($tex, $u)
     {
         $this->Texto = $tex;
         $this->User = $u;
-    }
-
-    function GetUser()
-    {
-        return $this->User;
-    }
-
-    function GetCom()
-    {
-        return $this->Texto;
     }
 }
 
@@ -36,83 +26,15 @@ class PostInfo
     public $PostID;
     public $PostDescription;
     public $PostOriginUser;
-
-    function GetTitle()
-    {
-        return $this->Title;
-    }
-
-    function GetId()
-    {
-        return $this->PostID;
-    }
-
-    function GetDescription()
-    {
-        return $this->PostDescription;
-    }
-
-    function GetPostOriginUser()
-    {
-        return $this->PostOriginUser;
-    }
-
-    function SetTitle($value)
-    {
-        $this->Title = $value;
-    }
-
-    function SetId($value)
-    {
-        $this->PostID = $value;
-    }
-
-    function SetDescription($value)
-    {
-        $this->PostDescription = $value;
-    }
-
-    function SetPostOriginUser($value)
-    {
-        $this->PostOriginUser = $value;
-    }
 }
+
 
 class User
 {
     public $ID;
     public $Email;
     public $Realname;
-
-    function SetID($value)
-    {
-        $this->ID = $value;
-    }
-
-    function SetEmail($value)
-    {
-        $this->Email = $value;
-    }
-
-    function SetRealname($value)
-    {
-        $this->Realname = $value;
-    }
-
-    function GetID()
-    {
-        return $this->ID;
-    }
-
-    function GetEmail()
-    {
-        return $this->Email;
-    }
-
-    function GetRealname()
-    {
-        return $this->Realname;
-    }
+    public $Date;
 }
 
 function UserExists($user, $pass)
@@ -137,16 +59,16 @@ function GetPostInfo($id)
 {
     $conn = OpenCom();
 
-    $sql = "SELECT * FROM `posts` WHERE `ID`=" . $_GET["id"];
+    $sql = "SELECT * FROM `posts` WHERE `ID`='" . $id . "'";
     $result = $conn->query($sql);
     $returnItem = new PostInfo();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $returnItem->SetTitle($row["Title"]);
-            $returnItem->SetId($row["ID"]);
-            $returnItem->SetDescription($row["Description"]);
-            $returnItem->SetPostOriginUser($row["User"]);
+            $returnItem->Title = $row["Title"];
+            $returnItem->PostID = $row["ID"];
+            $returnItem->PostDescription = $row["Description"];
+            $returnItem->PostOriginUser = $row["User"];
         }
     }
     $conn->close();
@@ -160,7 +82,7 @@ function GetPostComments($id)
     $PFavor = array();
     $PContra = array();
 
-    $sql = "SELECT * FROM `coments` WHERE `PID`=" . $id;
+    $sql = "SELECT * FROM `coments` WHERE `PID`='" . $id . "'";
     $result = $conn->query($sql);
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -181,15 +103,16 @@ function GetUserInfo($id)
 {
     $conn = OpenCom();
 
-    $sql = "SELECT * FROM `users` WHERE `ID`=" . $id;
+    $sql = "SELECT * FROM `users` WHERE `ID`='" . $id . "'";
     $result = $conn->query($sql);
     $returnItem = new User();
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            $returnItem->SetID($row["ID"]);
-            $returnItem->SetEmail($row["Email"]);
-            $returnItem->SetRealname($row["Realname"]);
+            $returnItem->ID = ($row["ID"]);
+            $returnItem->Email = ($row["Email"]);
+            $returnItem->Realname = ($row["Realname"]);
+            $returnItem->Date = ($row["Date"]);
         }
     } else {
         return null;
@@ -199,43 +122,71 @@ function GetUserInfo($id)
     return $returnItem;
 }
 
-function GetUserIdfromCredentials($u, $p)
+function IsLoginValid($u, $p)
 {
     $conn = OpenCom();
 
     $sql = "SELECT * FROM `users` WHERE `Email`=\"" . $u . "\" AND `Password`=\"" . $p . "\"";;
     $result = $conn->query($sql);
     $returnItem = new User();
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $returnItem->SetID($row["ID"]);
-            $returnItem->SetEmail($row["Email"]);
-            $returnItem->SetRealname($row["Realname"]);
-        }
-    }
     $conn->close();
 
-    return $returnItem;
+    if ($result->num_rows == 1) {
+        while ($row = $result->fetch_assoc()) {
+            $returnItem->ID = ($row["ID"]);
+            $returnItem->Email = ($row["Email"]);
+            $returnItem->Realname = ($row["Realname"]);
+        }
+    } else {
+        return array(false, null);
+    }
+
+    return array(true, $returnItem);
 }
 
-function IsUserRegistered($u)
+function IsUserValid($u)
 {
     $conn = OpenCom();
 
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
     $sql = "SELECT * FROM `users` WHERE `Email`='" . $u . "'";
     $result = $conn->query($sql);
-
     $conn->close();
 
-    if ($result->num_rows > 0)
+    if ($result->num_rows > 0) {
         return true;
-    else
+    } else {
         return false;
+    }
+}
+
+function IsUserIDValid($u)
+{
+    $conn = OpenCom();
+
+    $sql = "SELECT * FROM `users` WHERE `ID`='" . $u . "'";
+    $result = $conn->query($sql);
+    $conn->close();
+
+    if ($result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function IsPostValid($postname)
+{
+    $conn = OpenCom();
+
+    $sql = "SELECT * FROM `posts` WHERE `Title`='" . $postname . "'";
+    $result = $conn->query($sql);
+    $conn->close();
+
+    if ($result->num_rows > 0) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function RegisterUser($email, $pass, $name)
@@ -245,16 +196,18 @@ function RegisterUser($email, $pass, $name)
     $sql = "INSERT INTO `users`(`Email`, `Password`, `Realname`) VALUES ('" . $email . "','" . $pass . "','" . $name . "')";
 
     if ($conn->query($sql) === false) {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        return false;
+    } else {
+        return true;
     }
     $conn->close();
 }
 
-function RegisterPost($title,$desc,$tags,$user)
+function RegisterPost($title, $desc, $tags, $user)
 {
     $conn = OpenCom();
 
-    $sql = "INSERT INTO `posts`(`Title`, `Description`, `User`, `Tags`) VALUES ('".$title."','".$desc."','".$user."','".$tags."')";
+    $sql = "INSERT INTO `posts`(`Title`, `Description`, `User`, `Tags`) VALUES ('" . $title . "','" . $desc . "','" . $user . "','" . $tags . "')";
     if ($conn->query($sql) === false) {
         echo "Error: " . $sql . "<br>" . $conn->error;
     }

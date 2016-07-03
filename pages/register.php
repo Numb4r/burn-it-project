@@ -6,24 +6,20 @@
  * Time: 22:55
  */
 
-require_once '../cfg/core.php';
-require_once '../cfg/sessionfnc.php';
-require_once '../cfg/database.php';
 require_once '../cfg/databasefnc.php';
+require_once '../cfg/cookiesfnc.php';
 
-if (isset($_SESSION["UserID"])) {
-    header("Location: dashboard.php");
-}
+UserIsNotLoggedIn();
 
-if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])) {
-
-    if (!IsUserRegistered($_POST["email"])) {
-        RegisterUser($_POST["email"], $_POST["password"], $_POST["name"]);
-        header("Location: login.php");
-    } else {
-        echo "Já registrado";
-    }
-}
+//if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])) {
+//    if (!IsUserValid($_POST["email"]))
+//    {
+//        RegisterUser($_POST["email"], $_POST["password"], $_POST["name"]);
+//        header("Location: login.php");
+//    } else {
+//        echo "Já registrado";
+//    }
+//}
 
 ?>
 
@@ -63,44 +59,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])
             max-width: 450px;
         }
     </style>
-    <script>
-        $(document)
-            .ready(function () {
-                $('.ui.form')
-                    .form({
-                        fields: {
-                            email: {
-                                identifier: 'email',
-                                rules: [
-                                    {
-                                        type: 'empty',
-                                        prompt: 'Por favor insira um e-mail'
-                                    },
-                                    {
-                                        type: 'email',
-                                        prompt: 'Por favor insira um e-mail válido'
-                                    }
-                                ]
-                            },
-                            password: {
-                                identifier: 'password',
-                                rules: [
-                                    {
-                                        type: 'empty',
-                                        prompt: 'Por favor insira uma senha'
-                                    },
-                                    {
-                                        type: 'length[6]',
-                                        prompt: 'Sua senha deve ter no minimo 6 caracteres.'
-                                    }
-                                ]
-                            }
-                        }
-                    })
-                ;
-            })
-        ;
-    </script>
+
 </head>
 <body>
 
@@ -116,22 +75,22 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="text" name="name" placeholder="Nome" value="" autocomplete="off">
+                        <input type="text" id="regName" name="name" placeholder="Nome" value="" autocomplete="off">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="mail icon"></i>
-                        <input type="text" name="email" placeholder="E-mail" value="" autocomplete="off">
+                        <input type="text" id="regEmail" name="email" placeholder="E-mail" value="" autocomplete="off">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" name="password" placeholder="Senha" value="" autocomplete="off">
+                        <input type="password" id="regPass" name="password" placeholder="Senha" value="" autocomplete="off">
                     </div>
                 </div>
-                <div class="ui fluid large red submit button">Registrar</div>
+                <div class="ui fluid large green basic button" id="registerBTN">Registrar</div>
             </div>
 
             <div class="ui error message"></div>
@@ -143,7 +102,7 @@ if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])
     </div>
 </div>
 
-
+<script src="../scripts/register.js"></script>
 </body>
 
 </html>

@@ -2,209 +2,207 @@
 /**
  * Created by PhpStorm.
  * User: MVMCJ
- * Date: 26/06/2016
- * Time: 02:31
+ * Date: 02/07/2016
+ * Time: 16:17
  */
+
 require_once '../cfg/core.php';
-require_once '../cfg/sessionfnc.php';
+require_once '../cfg/cookiesfnc.php';
+require_once '../cfg/userfnc.php';
 require_once '../cfg/databasefnc.php';
 
-if (isset($_POST['title']) && isset($_POST['desc']) && isset($_POST['tags'])) {
-    $NPTitle = $_POST['title'];
-    $NPDesc = $_POST['desc'];
-    $NPTags = $_POST['tags'];
+$CurrentUser = GetCurrentUserInfo();
 
-    if (!empty($NPTitle) && !empty($NPDesc) && !empty($NPTags)) {
-        $cUser = GetUserInfo(GetCurrentUserID());
-        RegisterPost($NPTitle, $NPDesc, $NPTags, $cUser->GetRealname());
-    }
-
-    header("Location: dashboard.php");
-}
-
+UserIsLoggedIn();
 
 ?>
+
 
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <title>Burn it</title>
+    <title>Dashboard - Burnit</title>
 
-
-    <link rel="stylesheet" href="../semantic/dist/semantic.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.css">
+    <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
 </head>
 
-<body onresize="">
+<body style="background-color: #ECE5CE">
 
-<div class="ui large top fixed hidden menu" style="display: none;">
-
-    <a class="item disabled" style="font-family: 'Lobster', cursive;">
-        Burn-it
-    </a>
-    <a class="item active">
-        Postagens
-    </a>
-    <a class="item">
-        Mensagens
-    </a>
-    <a class="item">
-        Amigos
-    </a>
-</div>
-
-<div class="ui vertical inverted sidebar menu">
-    <a class="item active">Postagens</a>
-    <a class="item">Mensagens</a>
-    <a class="item">Amigos</a>
-</div>
-
-<div class="ui inverted vertical masthead center aligned segment landing-image" style="padding-top: 0px;">
-    <div class="container">
-        <div class="ui large secondary inverted pointing menu" style="border-color: transparent">
-            <a class="toc item">
-                <i class="sidebar icon"></i>
-            </a>
-            <a class="item active">Postagens</a>
-            <a class="item">Mensagens</a>
-            <a class="item">Amigos</a>
-
-            <div class="item right">
-                Bem vindo de volta, <?php
-                $u = GetUserInfo(GetCurrentUserID());
-                echo $u->GetRealname();
-                ?>
-            </div>
-            <a class="item" href="logout.php">Sair</a>
+<!-- Top Menu -->
+<div class="ui fixed borderless menu" style="background-color: #556270">
+    <div class="ui item" style="width: 400px;">
+        <div class="ui icon input">
+            <input class="prompt" type="text" placeholder="Pesquisar...">
+            <i class="search link icon"></i>
         </div>
-
-        <img class="ui medium image centered" src="../imgs/burnitCortadoBranco.png">
+        <div class="results"></div>
     </div>
-</div>
 
-<div class="ui divider" style="padding-bottom: 0px; padding-top: 0px;"></div>
-
-<div align="center" style="padding-top: 10px; padding-bottom: 10px; ">
-    <button class="ui positive basic button switch icon" id="postbtn" data-tooltip="Adicionar uma discussão"><i
-            class="add icon"></i>
-        Adicionar
-    </button>
-
-    <div class="ui selection dropdown">
-        <input type="hidden" name="gender">
-        <i class="dropdown icon"></i>
-        <div class="default text">Ordem</div>
-        <div class="menu">
-            <div class="item" data-value="1">De postagem</div>
-            <div class="item" data-value="0">Por categoria</div>
-        </div>
-    </div>
-</div>
-
-<div class="ui middle aligned center aligned grid" id="postform" style="display: none;">
-    <div class="column">
-        <form class="ui large form" method="POST" action="" autocomplete="off">
-            <div class="ui stacked segment">
-                <div class="field">
-                    <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <input type="text" name="title" placeholder="Título">
-                    </div>
+    <div class="right menu">
+        <div class="ui item icon dropdown">
+            <i class="alarm outline icon" style="color: white;"></i>
+            <div class="menu">
+                <div class="header">
+                    <i class="tags icon"></i>
+                    Filter by tag
                 </div>
-                <div class="field">
-                    <div class="ui left icon input">
-                        <i class="file text icon"></i>
-                        <input type="text" name="desc" placeholder="Descrição">
-                    </div>
+                <div class="divider"></div>
+                <div class="item">
+                    <i class="attention icon"></i>
+                    Important
                 </div>
-                <div class="field">
-                    <div class="ui left icon input">
-                        <i class="tags icon"></i>
-                        <input type="text" name="tags" placeholder="Tags">
-                    </div>
+                <div class="item">
+                    <i class="comment icon"></i>
+                    Announcement
                 </div>
-                <div class="ui buttons">
-                    <div class="ui button switch">Cancelar</div>
-                    <div class="or" data-text="ou"></div>
-                    <button class="ui positive button" type="submit">Postar</button>
+                <div class="item">
+                    <i class="conversation icon"></i>
+                    Discussion
                 </div>
             </div>
+        </div>
 
-            <div class="ui error message"></div>
-        </form>
+        <div class="ui item dropdown" style="padding-bottom: 5px; padding-top: 5px; padding-right: 2px;">
+            <img src="http://shop.bilocationrecords.com/bilder/produkte/gross/TRUCKFIGHTERS-Universe-clear-LP.jpg"
+                 class="ui circular mini image">
+            <i class="icon caret down" style="color: white;"></i>
+            <div class="menu">
+                <div class="item">New</div>
+                <div class="item">
+                    <span class="description">ctrl + o</span>
+                    Open...
+                </div>
+                <div class="item">
+                    <span class="description">ctrl + s</span>
+                    Save as...
+                </div>
+                <div class="item">
+                    <span class="description">ctrl + r</span>
+                    Rename
+                </div>
+                <div class="item">Make a copy</div>
+                <div class="item">
+                    <i class="folder icon"></i>
+                    Move to folder
+                </div>
+                <div class="item">
+                    <i class="trash icon"></i>
+                    Move to trash
+                </div>
+                <div class="divider"></div>
+                <div class="item">Download As...</div>
+                <div class="item">
+                    <i class="dropdown icon"></i>
+                    Publish To Web
+                    <div class="menu">
+                        <div class="item">Google Docs</div>
+                        <div class="item">Google Drive</div>
+                        <div class="item">Dropbox</div>
+                        <div class="item">Adobe Creative Cloud</div>
+                        <div class="item">Private FTP</div>
+                        <div class="item">Another Service...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="ui divider"></div>
+<!-- Main Content -->
+<div class="ui text container" style="padding-top: 8em;">
+    <div class="ui segment basic">
 
-<div class="ui cards posts stackable centered" style="padding-left: 10px; padding-right: 10px;">
-    <?php
-    include('../cfg/database.php');
+        <!-- Side user menu-->
+        <div class="ui left attached very close rail">
+            <div class="ui sticky">
 
-    $conn = OpenCom();
-    $sql = "SELECT * FROM posts ORDER BY ID DESC";
-    $result = $conn->query($sql);
+                <div class="ui card">
+                    <div class="image">
+                        <img
+                            src="http://shop.bilocationrecords.com/bilder/produkte/gross/TRUCKFIGHTERS-Universe-clear-LP.jpg"
+                            title="">
+                    </div>
+                    <div class="content">
+                        <a class="header"><?php echo $CurrentUser->Realname ?></a>
+                        <div class="meta">
+                            <span class="date">Inscreveu-se em <?php
 
-    function GetRandColor()
-    {
-        $x = rand(0, 11);
-        switch ($x) {
-            case 0:
-                return "red";
-            case 1:
-                return "orange";
-            case 2:
-                return "yellow";
-            case 3:
-                return "olive";
-            case 4:
-                return "green";
-            case 5:
-                return "teal";
-            case 6:
-                return "blue";
-            case 7:
-                return "violet";
-            case 8:
-                return "purple";
-            case 9:
-                return "brown";
-            default:
-                return "black";
-        }
-        return "red";
-    }
+                                $datetime = new DateTime($CurrentUser->Date);
 
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            echo "<a class=\"ui " . GetRandColor() . " card\" href=\"post.php?id=" . $row["ID"] . "\">
-                        <div class=\"content\">
-                            <div class=\"header center aligned oneline\">" . $row["Title"] . "</div>
-                            <div class=\"meta\">
-                                <p class=\"category segmented\">" . $row["Description"] . "</p>
-                            </div>
+                                echo $datetime->format('Y') ?></span>
                         </div>
-                        <div class=\"extra content\">
-                            <div class=\"right floated author\">
-                                <img class=\"ui avatar image\" src=\"http://semantic-ui.com/images/avatar/large/helen.jpg\">" . $row["User"] . "
-                            </div>
+                        <div class="description">
+                            Yuri é viadão.(sou não,se foder)
                         </div>
-                    </a>";
-        }
-    } else {
-        echo "No posts here";
-    }
-    $conn->close();
+                    </div>
+                    <div class="extra content">
+                        <a>
+                            <i class="user icon"></i>
+                            22 Amigos
+                        </a>
+                    </div>
 
-    ?>
+                    <div class="extra content">
+                        <button class="ui button fluid primary labeled icon" onclick="$('.ui.modal').modal('show')">
+                            <i class="write icon"></i>
+                            Escrever
+                        </button>
+                        <div style="height: 10px;"></div>
+                        <a href="settings.php"
+                        <button class="ui button fluid basic secondary labeled icon" >
+                            <i class="configure icon"></i>
+                            Configurações
+                        </button>
+                        </a>
+                    </div>
 
+                </div>
+
+            </div>
+        </div>
+        <div id="loader" class="ui basic segment hiddenloader">
+            <div class="ui active loader"></div>
+        </div>
+
+        <div class="ui one cards" id="newposts">
+
+        </div>
+
+    </div>
 </div>
 
+<!-- Add post modal -->
+<div class="ui small modal" id="postmodal">
+    <div class="header" style="background-color: #556270; color: white;">
+        Adicionar discussão
+    </div>
+    <form class="ui form basic segment">
+        <div class="field">
+            <label> <i class="icon tag"></i>Título</label>
+            <div class="ui right icon input" id="Posttitleinput">
+                <input type="text" placeholder="Título" name="title" id="Posttitle">
+                <i class="icon"></i>
+            </div>
+        </div>
+        <div class="field">
+            <label><i class="icon file text"></i>Descrição</label>
+            <textarea name="desc" placeholder="Descrição" id="Postdesc"></textarea>
+        </div>
+        <div class="field">
+            <label><i class="icon tags"></i>Tags</label>
+            <input type="text" placeholder="Tags" id="Posttags" name="tags">
+        </div>
+        <div class="ui error message"></div>
+        <div class="ui blue button" id="postbtn">Postar</div>
+    </form>
+</div>
+
+
+<!-- Jquery scripts -->
 <script src="../scripts/jquery.min.js"></script>
 <script src="../semantic/dist/semantic.js"></script>
 <script src="../scripts/dashboard.js"></script>
-
 </body>
