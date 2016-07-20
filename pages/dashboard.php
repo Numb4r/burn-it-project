@@ -6,20 +6,31 @@
  * Time: 16:17
  */
 
-require_once '../cfg/core.php';
-require_once '../cfg/cookiesfnc.php';
 require_once '../cfg/userfnc.php';
-require_once '../cfg/databasefnc.php';
-
-$CurrentUser = GetCurrentUserInfo();
+require_once '../objects/users.php';
+require_once '../objects/postQuery.php';
 
 UserIsLoggedIn();
+
+$CurrentUser = new User(GetCurrentUserID());
+$Hasverifarg = false;
+
+if (isset($_GET["verif"]) && !empty($_GET["verif"])) {
+    $Hasverifarg = true;
+}
+
+if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
+    //header("Location: loginerror.php");
+} else if ($Hasverifarg) {
+    $key = $_GET["verif"];
+    $CurrentUser->ValidateEmail($key);
+}
 
 ?>
 
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
@@ -27,89 +38,53 @@ UserIsLoggedIn();
 
     <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.css">
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+    <script src="../scripts/jquery.min.js"></script>
+    <script src="../react/browser.min.js"></script>
+    <script src="https://fb.me/react-15.2.1.min.js"></script>
+    <script src="https://fb.me/react-dom-15.2.1.min.js"></script>
+
 </head>
 
 <body style="background-color: #ECE5CE">
 
-<!-- Top Menu -->
-<div class="ui fixed borderless menu" style="background-color: #556270">
-    <div class="ui item" style="width: 400px;">
-        <div class="ui icon input">
-            <input class="prompt" type="text" placeholder="Pesquisar...">
-            <i class="search link icon"></i>
-        </div>
-        <div class="results"></div>
-    </div>
-
-    <div class="right menu">
-        <div class="ui item icon dropdown">
-            <i class="alarm outline icon" style="color: white;"></i>
-            <div class="menu">
-                <div class="header">
-                    <i class="tags icon"></i>
-                    Filter by tag
-                </div>
-                <div class="divider"></div>
-                <div class="item">
-                    <i class="attention icon"></i>
-                    Important
-                </div>
-                <div class="item">
-                    <i class="comment icon"></i>
-                    Announcement
-                </div>
-                <div class="item">
-                    <i class="conversation icon"></i>
-                    Discussion
-                </div>
-            </div>
-        </div>
-
-        <div class="ui item dropdown" style="padding-bottom: 5px; padding-top: 5px; padding-right: 2px;">
-            <img src="http://shop.bilocationrecords.com/bilder/produkte/gross/TRUCKFIGHTERS-Universe-clear-LP.jpg"
-                 class="ui circular mini image">
-            <i class="icon caret down" style="color: white;"></i>
-            <div class="menu">
-                <div class="item">New</div>
-                <div class="item">
-                    <span class="description">ctrl + o</span>
-                    Open...
-                </div>
-                <div class="item">
-                    <span class="description">ctrl + s</span>
-                    Save as...
-                </div>
-                <div class="item">
-                    <span class="description">ctrl + r</span>
-                    Rename
-                </div>
-                <div class="item">Make a copy</div>
-                <div class="item">
-                    <i class="folder icon"></i>
-                    Move to folder
-                </div>
-                <div class="item">
-                    <i class="trash icon"></i>
-                    Move to trash
-                </div>
-                <div class="divider"></div>
-                <div class="item">Download As...</div>
-                <div class="item">
-                    <i class="dropdown icon"></i>
-                    Publish To Web
-                    <div class="menu">
-                        <div class="item">Google Docs</div>
-                        <div class="item">Google Drive</div>
-                        <div class="item">Dropbox</div>
-                        <div class="item">Adobe Creative Cloud</div>
-                        <div class="item">Private FTP</div>
-                        <div class="item">Another Service...</div>
-                    </div>
-                </div>
-            </div>
+<!-- Body Dimmer -->
+<div class="ui dimmer" id="bodyDimmer">
+    <div class="content">
+        <div class="center">
+            <div class="ui text loader">Fazendo upload</div>
         </div>
     </div>
 </div>
+
+<!-- Email Modal -->
+<div class="ui modal email">
+
+    <div class="header">
+        Verficação do e-mail
+    </div>
+    <div class="image content">
+        <div class="ui medium image">
+            <img src="../imgs/phoenix.png">
+        </div>
+        <div class="description">
+            <div class="ui header">Olá <?php echo $CurrentUser->Name ?>,</div>
+            <p>Verificamos que seu e-mail ainda não foi verificado, e infelizmente você não pode utilizar o site antes
+                que isso aconteça, portanto por favor verifique a caixa de entrada de seu e-mail e siga as intruções
+                para verificar o seu email.</p>
+        </div>
+    </div>
+    <div class="actions">
+        <label style="display: none" id="emailMessageConfirmed">Email reenviado</label>
+        <div class="ui right labeled icon button" id="emailResendbutton"
+             style="background-color: #556270; color: white;">
+            Reenviar e-mail
+            <i class="refresh icon"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Top Menu -->
+<div id="menu"></div>
 
 <!-- Main Content -->
 <div class="ui text container" style="padding-top: 8em;">
@@ -119,14 +94,28 @@ UserIsLoggedIn();
         <div class="ui left attached very close rail">
             <div class="ui sticky">
 
-                <div class="ui card">
-                    <div class="image">
-                        <img
-                            src="http://shop.bilocationrecords.com/bilder/produkte/gross/TRUCKFIGHTERS-Universe-clear-LP.jpg"
-                            title="">
+                <div class="ui raised card">
+                    <div align="center">
+                        <div class="ui medium image" id="profileImage" style="padding: 0px; ">
+                            <div class="ui dimmer">
+                                <div class="content">
+                                    <div class="center">
+                                        <div>
+                                            <label for="file" class="ui basic inverted button"
+                                                   id="profileimagebtn">
+                                                Alterar imagem</label>
+                                            <input type="file" id="file" style="display:none">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <img class="centered" src="<?php echo $CurrentUser->Image ?>"
+                                 style="border-top-left-radius: 2px; border-top-right-radius: 2px;">
+                        </div>
                     </div>
                     <div class="content">
-                        <a class="header"><?php echo $CurrentUser->Realname ?></a>
+                        <a href='/pages/profile.php?id=<?php echo $CurrentUser->ID ?>'
+                           class="header"><?php echo $CurrentUser->Name ?></a>
                         <div class="meta">
                             <span class="date">Inscreveu-se em <?php
 
@@ -134,8 +123,112 @@ UserIsLoggedIn();
 
                                 echo $datetime->format('Y') ?></span>
                         </div>
-                        <div class="description">
-                            Yuri é viadão.(sou não,se foder)
+                        <div class="description" id="userDesc">
+                            <script type="text/babel">
+                                var UserDescription = React.createClass({
+                                    getInitialState: function () {
+
+                                        var result = this.props.children;
+
+                                        return {
+                                            editing: false,
+                                            hover: false,
+                                            desc: result
+                                        }
+                                    },
+
+                                    onClick: function () {
+                                        this.setState({editing: true})
+                                    },
+
+                                    onCancel: function () {
+                                        this.setState({editing: false})
+                                    },
+
+                                    onSave: function () {
+                                        var reactObj = this;
+
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: "../api/userdesc.php",
+                                            data: {Desc: reactObj.refs.newdesc.value},
+                                            success: function () {
+                                                reactObj.setState({
+                                                    editing: false,
+                                                    desc: reactObj.refs.newdesc.value,
+                                                    hover: false
+                                                })
+                                            },
+                                            error: function (data) {
+                                                console.log(data);
+                                            }
+                                        });
+                                    },
+
+                                    onMouseEnter: function () {
+                                        this.setState({hover: true})
+                                    },
+
+                                    onMouseLeave: function () {
+                                        this.setState({hover: false})
+                                    },
+
+                                    renderNormal: function () {
+                                        return <div onMouseEnter={this.onMouseEnter}>{this.state.desc}</div>;
+                                    },
+
+                                    renderNormalToEdit: function () {
+                                        return (
+                                            <div onMouseLeave={this.onMouseLeave}>
+                                                {this.state.desc}
+                                                <i className="edit link right floated icon" onClick={this.onClick}></i>
+                                            </div>);
+                                    },
+
+                                    renderEditing: function () {
+                                        return (<div className="ui form">
+                                            <div className="field">
+                                                <textarea ref="newdesc" defaultValue={this.state.desc}></textarea>
+                                            </div>
+                                            <div className="two ui buttons">
+                                                <button className="ui icon button" onClick={this.onCancel}>
+                                                    Cancelar
+                                                </button>
+                                                <button className="ui right labeled icon positive button"
+                                                        onClick={this.onSave}>
+                                                    <i className="right checkmark icon"></i>
+                                                    Salvar
+                                                </button>
+                                            </div>
+                                        </div>);
+                                    },
+
+                                    mouseOver: function () {
+                                        this.setState({hover: true});
+                                    },
+
+                                    mouseOut: function () {
+                                        this.setState({hover: false});
+                                    },
+
+                                    render: function () {
+                                        if (!this.state.editing) {
+                                            if (this.state.hover) {
+                                                return this.renderNormalToEdit();
+                                            }
+                                            else {
+                                                return this.renderNormal();
+                                            }
+                                        } else {
+                                            return this.renderEditing();
+                                        }
+                                    }
+                                });
+
+                                ReactDOM.render(
+                                    <UserDescription><?php echo $CurrentUser->Description ?></UserDescription>, document.getElementById('userDesc'));
+                            </script>
+
                         </div>
                     </div>
                     <div class="extra content">
@@ -146,13 +239,13 @@ UserIsLoggedIn();
                     </div>
 
                     <div class="extra content">
-                        <button class="ui button fluid primary labeled icon" onclick="$('.ui.modal').modal('show')">
+                        <button class="ui button fluid primary labeled icon" onclick="$('#postmodal').modal('show')">
                             <i class="write icon"></i>
                             Escrever
                         </button>
                         <div style="height: 10px;"></div>
                         <a href="settings.php"
-                        <button class="ui button fluid basic secondary labeled icon" >
+                        <button class="ui button fluid basic secondary labeled icon">
                             <i class="configure icon"></i>
                             Configurações
                         </button>
@@ -163,6 +256,28 @@ UserIsLoggedIn();
 
             </div>
         </div>
+
+        <div class="ui right attached very close rail" style="height: 100%">
+            <div class="ui sticky">
+
+                <div class="ui raised card">
+                    <div style="margin: 10px;" align="center">
+                        <h1>Amigos</h1>
+                    </div>
+                    <div class="content">
+                        <div id="friends"></div>
+                    </div>
+                    <div class="extra content">
+                        <a>
+                            <i class="user icon"></i>
+                            Ficar offline
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
         <div id="loader" class="ui basic segment hiddenloader">
             <div class="ui active loader"></div>
         </div>
@@ -176,10 +291,11 @@ UserIsLoggedIn();
 
 <!-- Add post modal -->
 <div class="ui small modal" id="postmodal">
+    <i class="close icon"></i>
     <div class="header" style="background-color: #556270; color: white;">
         Adicionar discussão
     </div>
-    <form class="ui form basic segment">
+    <form class="ui form basic segment" id="postform">
         <div class="field">
             <label> <i class="icon tag"></i>Título</label>
             <div class="ui right icon input" id="Posttitleinput">
@@ -202,7 +318,199 @@ UserIsLoggedIn();
 
 
 <!-- Jquery scripts -->
-<script src="../scripts/jquery.min.js"></script>
+
 <script src="../semantic/dist/semantic.js"></script>
-<script src="../scripts/dashboard.js"></script>
+<script src="../scripts/basic.js"></script>
+
+<!-- Functions -->
+<script type="text/javascript">
+    function SubmitPostform() {
+        postForm.form('validate form');
+        if (postForm.form('is valid')) {
+            postFormButton.addClass("loading");
+
+            $.post("../api/post.php",
+                {
+                    Title: $("#Posttitle").val(),
+                    Description: $("#Postdesc").val(),
+                    Tags: $("#Posttags").val()
+                },
+                function (data, status) {
+                    if (data != "3") {
+                        $('.modal').modal('hide');
+                        $('#postmodal').form('clear');
+                        Update();
+                    } else {
+                        postForm.form('add errors', {
+                            title: "O título inserido já está cadastrado."
+                        });
+                    }
+
+                    postFormButton.removeClass("loading");
+                });
+
+        }
+    }
+    function SendVerificationEmail() {
+        $.post("../api/emailvalidation.php", {}, function (data, success) {
+        });
+    }
+    function SubmitPhoto() {
+
+        if ((profileImageSelector[0].files[0]) !== null) {
+            var formData = new FormData();
+            formData.append('arquivo', profileImageSelector[0].files[0]);
+
+            $('#bodyDimmer').dimmer('show');
+
+            $.ajax({
+                type: 'POST',
+                url: "../api/fileUpload.php",
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function () {
+                    $('#bodyDimmer').dimmer('hide');
+                    window.location.reload(true);
+                },
+                error: function (data) {
+                    console.log(data);
+                }
+            });
+        }
+
+    }
+    function Update() {
+
+        $("#newposts").html("");
+        $("#loader").removeClass("hiddenloader");
+        $("#loader").addClass("loaderactive");
+
+        $.ajax({
+            url: "../cfg/postsfilter.php",
+            success: function (result) {
+                $("#newposts").html(result);
+                $("#loader").removeClass("loaderactive");
+                $("#loader").addClass("hiddenloader");
+            }
+        });
+    }
+</script>
+
+<!-- Vars -->
+<script type="text/javascript">
+    var postForm = $("#postform");
+    var postFormButton = $("#postbtn");
+    var profileImage = $("#profileImage");
+    var profileImageSelector = $('#file');
+</script>
+
+<!-- Misc -->
+<script type="text/javascript">
+    profileImageSelector.on('change', function (e) {
+        e.preventDefault();
+        SubmitPhoto();
+    });
+    postFormButton.click(function () {
+        SubmitPostform();
+    });
+    postForm.form({
+        fields: {
+            title: {
+                identifier: 'title',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Por favor coloque um título.'
+                    }
+                ]
+            },
+            desc: {
+                identifier: 'desc',
+                rules: [
+                    {
+                        type: 'minLength[10]',
+                        prompt: 'Por favor escreva uma descrição de no minimo 10 caracteres.'
+                    }
+                ]
+            },
+            tags: {
+                identifier: 'tags',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: 'Por favor escreva uma tag.'
+                    }
+                ]
+            }
+        },
+        keyboardShortcuts: false
+    });
+
+    $(document).on("keypress", "form", function (event) {
+        if (event.keyCode == 13) {
+            SubmitPostform();
+        }
+        return event.keyCode;
+    });
+
+    $('.ui.dropdown').dropdown({transition: 'fade down'});
+    $('.main.menu').visibility({type: 'fixed'});
+
+    $.post("../api/validemail.php",
+        {},
+        function (data, status) {
+            if (data != 1) {
+
+                $('.ui.modal.email')
+                    .modal({closable: false}).modal('show')
+                ;
+
+                var emailCansend = true;
+                var emailMessage = $("#emailMessageConfirmed");
+                var emailSendButton = $("#emailResendbutton");
+
+                emailSendButton.click(function () {
+                    if (emailCansend) {
+                        emailMessage.html("Email reenviado");
+                        SendVerificationEmail();
+                        emailMessage.transition('fade up');
+                        emailCansend = false;
+
+                        setTimeout(function () {
+                            emailMessage.transition('fade up');
+                            emailSendButton.addClass("disabled");
+                        }, 1000);
+
+                        setTimeout(function () {
+                            emailCansend = true;
+                            emailSendButton.removeClass("disabled");
+                        }, 30000);
+                    }
+                });
+            }
+        });
+
+    var timeoutId;
+    profileImage.hover(function () {
+            if (!timeoutId) {
+                timeoutId = window.setTimeout(function () {
+                    timeoutId = null;
+                    profileImage.dimmer("show");
+                }, 1500);
+            }
+        }, function () {
+            if (timeoutId) {
+                window.clearTimeout(timeoutId);
+                timeoutId = null;
+            }
+            else {
+                profileImage.dimmer("hide");
+            }
+        });
+    Update();
+</script>
+
+
 </body>

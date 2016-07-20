@@ -1,0 +1,34 @@
+.anim-container {
+    height:4rem;
+    width:4rem;
+    transition:.3s;
+    position:relative;
+    cursor:pointer;
+}
+.anim-container .icon {
+    transition:.3s;
+    position:absolute;
+    font-size:4em !important;
+    height:1em;
+    width:1em;
+}
+.anim-container .item1 {
+    transform:rotate(-135deg);
+    opacity:0;
+}
+
+.anim-container.morphed {
+    transform:rotate(135deg);
+}
+.anim-container.morphed .item1 {
+    opacity:1;
+}
+.anim-container.morphed .angle {
+    opacity:0;
+}
+
+.anim-container.small {
+    height:2rem;
+    width:2rem;
+    font-size:.5rem;
+}

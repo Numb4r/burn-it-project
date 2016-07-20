@@ -1,0 +1,7 @@
+{
+  "require": {
+    "phpmailer/phpmailer": "~5.2",
+    "silex/silex": "^2.0",
+    "friendsofphp/php-cs-fixer": "^1.11"
+  }
+}

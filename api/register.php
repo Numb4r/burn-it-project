@@ -6,23 +6,20 @@
  * Time: 20:35
  */
 
-require_once '../cfg/database.php';
-require_once '../cfg/databasefnc.php';
-require_once '../cfg/cookiesfnc.php';
+require_once '../objects/users.php';
 require_once '../utils/postrequired.php';
+require_once '../cfg/userfnc.php';
+
 UserIsNotLoggedIn();
 
-if(POSTRequired(array("User", "Pass", "Realname")))
-{
-    if(!IsUserValid($_POST["User"]))
-    {
-        RegisterUser($_POST["User"], $_POST["Pass"], $_POST["Realname"]);
+if (POSTRequired(array("User", "Pass", "Realname"))) {
+
+    if (!User::UserExists($_POST["User"])) {
+        User::Register($_POST["User"], $_POST["Pass"], $_POST["Realname"]);
         echo "1";
-    }else{
+    } else {
         echo "2";
     }
-}
-else
-{
+} else {
     echo "0";
 }

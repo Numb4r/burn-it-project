@@ -3,8 +3,7 @@
  */
 
 
-function submit()
-{
+function submit() {
     $('.ui.form').form('validate form');
     if ($('.ui.form').form('is valid')) {
 
@@ -15,7 +14,6 @@ function submit()
                 Pass: $("#passinput").val()
             },
             function (data, status) {
-
                 $("#loginBTN").removeClass("loading");
                 if (data == "0") {
                     $(".ui.form").form('add errors', {
@@ -76,9 +74,9 @@ $(document)
             })
         ;
 
-        $(document).on("keypress", "form", function(event) {
+        $(document).on("keypress", "form", function (event) {
 
-            if(event.keyCode == 13){
+            if (event.keyCode == 13) {
                 submit();
             }
             return event.keyCode;

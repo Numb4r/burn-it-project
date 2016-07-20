@@ -1,0 +1,6 @@
+extern
+node_modules
+tmp
+.idea/workspace.xml
+.idea/misc.xml
+/.idea/

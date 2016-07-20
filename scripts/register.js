@@ -5,6 +5,8 @@
 function submit() {
     $('.ui.form').form('validate form');
     if ($('.ui.form').form('is valid')) {
+
+
         $("#registerBTN").addClass("loading");
         $.post("../api/register.php",
             {
@@ -13,6 +15,8 @@ function submit() {
                 Realname: $("#regName").val()
             },
             function (data, status) {
+                console.log("POST Retornou: ".status);
+                console.log("POST Retornou data: ".data);
                 if (data == "0") {
                     $(".ui.form").form('add errors', {
                         email: "O pedido de POST falhou.",
@@ -35,9 +39,11 @@ function submit() {
 $(document)
     .ready(function () {
 
-        $(document).on("keypress", "form", function(event) {
+        console.log("Pagina de registro");
 
-            if(event.keyCode == 13){
+        $(document).on("keypress", "form", function (event) {
+
+            if (event.keyCode == 13) {
                 submit();
             }
             return event.keyCode;

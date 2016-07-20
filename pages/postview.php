@@ -1,30 +1,18 @@
 <?php
 
-require_once('../cfg/core.php');
-require_once('../cfg/cookiesfnc.php');
-require_once('../cfg/database.php');
-require_once('../cfg/databasefnc.php');
+require_once ('../cfg/userfnc.php');
+require_once('../objects/users.php');
+require_once('../objects/post.php');
 
-global $PTitle;
-global $PID;
-global $PDesc;
-global $PUser;
-global $PFavor;
-global $PContra;
+UserIsLoggedIn();
+
+global $Post;
 global $PComLimit;
 
 $PComLimit = 5;
 
 if (isset($_GET['id']) && !empty($_GET['id'])) {
-    $Info = GetPostInfo($_GET['id']);
-    $PTitle = $Info->Title();
-    $PID = $Info->PostID();
-    $PDesc = $Info->PostDescription();
-    $PUser = GetUserInfo($Info->PostOriginUser)->Realname;
-
-    $Coments = GetPostComments($_GET['id']);
-    $PFavor = $Coments[0];
-    $PContra = $Coments[1];
+    $Post = new Post($_GET['id']);
 } else {
     header("Location: 404.php");
 }
@@ -38,93 +26,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     <link rel="stylesheet" href="../css/post.css">
 </head>
 
+
 <body style="background-color: #ECE5CE">
 
 <!-- Top Menu -->
-<div class="ui fixed borderless menu" style="background-color: #556270">
-    <a class="ui item" style="color: white;" href="dashboard.php">
-       <i class="ui icon home outline"></i>
-        Home
-    </a>
+<div id="menu"></div>
 
-    <div class="right menu">
-        <div class="ui item icon dropdown">
-            <i class="alarm outline icon" style="color: white;"></i>
-            <div class="menu">
-                <div class="header">
-                    <i class="tags icon"></i>
-                    Filter by tag
-                </div>
-                <div class="divider"></div>
-                <div class="item">
-                    <i class="attention icon"></i>
-                    Important
-                </div>
-                <div class="item">
-                    <i class="comment icon"></i>
-                    Announcement
-                </div>
-                <div class="item">
-                    <i class="conversation icon"></i>
-                    Discussion
-                </div>
-            </div>
-        </div>
+<div style="height: 60px;"></div>
 
-        <div class="ui item dropdown" style="padding-bottom: 5px; padding-top: 5px; padding-right: 2px;">
-            <img src="http://shop.bilocationrecords.com/bilder/produkte/gross/TRUCKFIGHTERS-Universe-clear-LP.jpg"
-                 class="ui circular mini image">
-            <i class="icon caret down" style="color: white;"></i>
-            <div class="menu">
-                <div class="item">New</div>
-                <div class="item">
-                    <span class="description">ctrl + o</span>
-                    Open...
-                </div>
-                <div class="item">
-                    <span class="description">ctrl + s</span>
-                    Save as...
-                </div>
-                <div class="item">
-                    <span class="description">ctrl + r</span>
-                    Rename
-                </div>
-                <div class="item">Make a copy</div>
-                <div class="item">
-                    <i class="folder icon"></i>
-                    Move to folder
-                </div>
-                <div class="item">
-                    <i class="trash icon"></i>
-                    Move to trash
-                </div>
-                <div class="divider"></div>
-                <div class="item">Download As...</div>
-                <div class="item">
-                    <i class="dropdown icon"></i>
-                    Publish To Web
-                    <div class="menu">
-                        <div class="item">Google Docs</div>
-                        <div class="item">Google Drive</div>
-                        <div class="item">Dropbox</div>
-                        <div class="item">Adobe Creative Cloud</div>
-                        <div class="item">Private FTP</div>
-                        <div class="item">Another Service...</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div style="height: 40px;"></div>
-
-<div class="ui raised very padded text container segment" style="max-width: 900px; ">
-
+<div class="ui raised very padded text container segment" style="max-width: 900px; min-height: 85%">
     <div class="ui middle aligned divided list">
         <div class="item">
             <div class="right floated content">
-
                 <div class="ui basic buttons">
                     <button class="ui icon button" data-content="Adicionar aos favoritos"><i
                             class="align heart icon"></i></button>
@@ -132,10 +45,32 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
                             class="align fire extinguisher icon"></i></button>
                 </div>
             </div>
+ 
+            <img class="ui avatar image" id="imageYurio" src=<?php echo $Post->User->Image?> data-html='
+            <div class="ui card">
+  <div class="image">
+    <img src=<?php echo $Post->User->Image?>>
+  </div>
+  <div class="content">
+    <a class="header"><?php echo $Post->User->Name ?></a>
+    <div class="meta">
+      <span class="date"><?php echo $Post->User->Date ?></span>
+    </div>
+    <div class="description">
+      <?php echo $Post->User->Email; ?>
+    </div>
+  </div>
+  <div class="extra content">
+    <a>
+      <i class="user icon"></i>
+      <?php //Numeros de amigos do criador do postecho query($Pdo)->"Select count(friends) form <?php $post->GetUser()"?>
+    </a>
+  </div>
+</div>'>
 
-            <img class="ui avatar image" src="../imgs/phoenix.png">
+
             <div class="content">
-                <?php echo $PUser; ?>
+                <?php echo $Post->User->Name; ?>
             </div>
 
             <div class="ui icon buttons middle aligned">
@@ -150,7 +85,7 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         </div>
     </div>
 
-    <p><?php echo $PDesc; ?></p>
+    <p><?php echo $Post->Description; ?></p>
 </div>
 
 
@@ -158,4 +93,5 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
 <script src="../semantic/dist/semantic.js"></script>
 <script src="../scripts/post.js"></script>
 <script src="../scripts/menu.js"></script>
+<script src="../scripts/basic.js"></script>
 </body>

@@ -6,7 +6,7 @@
  * Time: 22:29
  */
 
-setcookie("BUID", "", time()-3600, "/");
+setcookie("BUID", "", time() - 3600, "/");
 
-header ("Location: index.php");
+header("Location: index.php");
 

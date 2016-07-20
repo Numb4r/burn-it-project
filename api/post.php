@@ -6,9 +6,9 @@
  * Time: 23:16
  */
 
-require_once '../cfg/database.php';
-require_once '../cfg/cookiesfnc.php';
-require_once '../cfg/databasefnc.php';
+require_once '../cfg/userfnc.php';
+require_once '../objects/users.php';
+require_once '../objects/post.php';
 require_once '../utils/postrequired.php';
 
 UserIsLoggedIn();
@@ -25,36 +25,36 @@ function getDatetimeNow()
 if (POSTRequired(array("IsValid"))) {
     $title = $_POST["IsValid"];
 
-    if (IsPostValid($title)) {
+    if (Post::Exists($title)) {
         echo "0";
     } else {
         echo "1";
     }
-}else{
-
-if (POSTRequired(array("Title", "Description", "Tags"))) {
-    $title = $_POST["Title"];
-    $desc = $_POST["Description"];
-    $user = GetCurrentUserID();
-    $tags = $_POST["Tags"];
-
-    if (!IsPostValid($title)) {
-
-        $conn = OpenCom();
-
-        $sql = "INSERT INTO `posts`(`Title`, `Description`, `User`, `Tags`, `Date`) VALUES ('" . $title . "','" . $desc . "','" . $user . "','" . $tags . "','" . getDatetimeNow() . "')";
-        if ($conn->query($sql) === false) {
-            echo "2";
-        } else {
-            echo "1";
-        }
-        $conn->close();
-    } else {
-        echo "3";
-    }
-
 } else {
-    echo "Not enough post info";
-}
+
+    if (POSTRequired(array("Title", "Description", "Tags"))) {
+        $title = $_POST["Title"];
+        $desc = $_POST["Description"];
+        $user = GetCurrentUserID();
+        $tags = $_POST["Tags"];
+
+        if (!Post::Exists($title)) {
+
+            $conn = OpenCom();
+
+            $sql = "INSERT INTO `posts`(`Title`, `Description`, `User`, `Tags`, `Date`) VALUES ('" . $title . "','" . $desc . "','" . $user . "','" . $tags . "','" . getDatetimeNow() . "')";
+            if ($conn->query($sql) === false) {
+                echo $conn->error;
+            } else {
+                echo "1";
+            }
+            $conn->close();
+        } else {
+            echo "3";
+        }
+
+    } else {
+        echo "Not enough post info";
+    }
 }
 

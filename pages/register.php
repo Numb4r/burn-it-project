@@ -6,20 +6,10 @@
  * Time: 22:55
  */
 
-require_once '../cfg/databasefnc.php';
-require_once '../cfg/cookiesfnc.php';
+require_once '../objects/users.php';
+require_once '../cfg/userfnc.php';
 
 UserIsNotLoggedIn();
-
-//if (isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["name"])) {
-//    if (!IsUserValid($_POST["email"]))
-//    {
-//        RegisterUser($_POST["email"], $_POST["password"], $_POST["name"]);
-//        header("Location: login.php");
-//    } else {
-//        echo "Já registrado";
-//    }
-//}
 
 ?>
 
@@ -87,7 +77,8 @@ UserIsNotLoggedIn();
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" id="regPass" name="password" placeholder="Senha" value="" autocomplete="off">
+                        <input type="password" id="regPass" name="password" placeholder="Senha" value=""
+                               autocomplete="off">
                     </div>
                 </div>
                 <div class="ui fluid large green basic button" id="registerBTN">Registrar</div>

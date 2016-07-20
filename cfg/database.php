@@ -1,8 +1,7 @@
 <?php
 
-require_once 'core.php';
 
-$servername = "burn-it.ddns.net";
+$servername = "10.142.0.3";
 $username = "redbaty";
 $password = "88134165";
 $dbname = "burnit";

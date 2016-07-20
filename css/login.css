@@ -2,7 +2,7 @@ body {
     background-image: url('../imgs/backgrounds/6.jpg');
     background-position-x: 100%;
     background-position-y: 90%;
-    overflow-y:hidden;
+    overflow-y: hidden;
 }
 
 body > .grid {

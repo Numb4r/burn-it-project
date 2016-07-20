@@ -7,9 +7,10 @@
  */
 
 
-function POSTRequired($List){
+function POSTRequired($List)
+{
     foreach ($List as &$value) {
-        if(!isset($_POST[$value]) || empty($_POST[$value])){
+        if (!isset($_POST[$value]) || empty($_POST[$value])) {
             return false;
         }
     }

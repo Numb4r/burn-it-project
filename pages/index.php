@@ -1,13 +1,12 @@
 <?php
 
-require_once '../cfg/databasefnc.php';
-require_once '../cfg/cookiesfnc.php';
+require_once '../objects/users.php';
+require_once '../cfg/userfnc.php';
 
 
 UserIsNotLoggedIn();
 
 ?>
-
 
 
 <html>

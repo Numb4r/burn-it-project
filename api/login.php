@@ -6,38 +6,33 @@
  * Time: 17:21
  */
 
-require_once '../cfg/database.php';
-require_once '../cfg/databasefnc.php';
-require_once '../cfg/cookiesfnc.php';
+
 require_once '../utils/postrequired.php';
+require_once '../cfg/userfnc.php';
+require_once '../objects/users.php';
 
 UserIsNotLoggedIn();
 
-function LogIn($u,$p)
+function LogIn($u, $p)
 {
     $password = md5($p);
-    $result = IsLoginValid($u, $password);
+    $result = new User("");
+    $result->GetInfoFromLogin($u, $password);
 
-    if($result[0])
-    {
-        setcookie("BUID", $result[1]->ID, 0, "/");
+    if ($result) {
+        setcookie("BUID", $result->ID, 2000000000, "/");
         return true;
-    }
-    else
-    {
+    } else {
         return false;
     }
 }
 
-if(POSTRequired(array("User", "Pass")))
-{
-    if(LogIn($_POST["User"], $_POST["Pass"])) {
+if (POSTRequired(array("User", "Pass"))) {
+    if (LogIn($_POST["User"], $_POST["Pass"])) {
         echo "1";
-    }else{
+    } else {
         echo "2";
     }
-}
-else
-{
+} else {
     echo "0";
 }
