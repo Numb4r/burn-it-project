@@ -7,6 +7,7 @@ $(document).ready(function () {
     var input = $('#iSearch');
     var uiinput = $('#iUi');
 
+
     $('.ui.dropdown').dropdown({transition: 'fade down'});
 
     input.focus(function () {
@@ -22,7 +23,7 @@ $(document).ready(function () {
             type: 'category',
             showNoResults: true,
             apiSettings: {
-                url: '../api/search.php?s={query}'
+                url: '../api/v2/api.php/search?s={query}'
             },
             fields: {
                 title: 'Title',

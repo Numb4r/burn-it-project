@@ -11,12 +11,10 @@ function submit() {
         $.post("../api/register.php",
             {
                 User: $("#regEmail").val(),
-                Pass: $("#regPass").val(),
+                Pass: md5($("#regPass").val()),
                 Realname: $("#regName").val()
             },
             function (data, status) {
-                console.log("POST Retornou: ".status);
-                console.log("POST Retornou data: ".data);
                 if (data == "0") {
                     $(".ui.form").form('add errors', {
                         email: "O pedido de POST falhou.",

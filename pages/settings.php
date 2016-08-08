@@ -32,8 +32,6 @@ UserIsLoggedIn();
 
 <!-- Top Menu -->
 <div id="menu"></div>
-
-
 <div class="ui text container" style="padding-top: 8em;">
     <div class="ui raised segment">
         <form action="" enctype="multipart/form-data" method="POST" class="ui form">
@@ -81,6 +79,25 @@ UserIsLoggedIn();
                 <div class="field">
                     <label>Senha</label>
                     <input type="password" placeholder="Senha">
+                </div>
+                <div class="divided"></div>
+                <div class="field">
+                    <label>Tema do perfil</label>
+                    <input class="" type="text" placeholder="Cor">
+                </div>
+                <div class="field">
+                    <!--                    Badge principal-->
+                    <label>Badge em destaque</label>
+                    <a class="button" onclick="$('.ui.modal')
+                    .modal('show')">
+                        <i class="icon inverted circular <?php echo $CurrentUser->Badges[0]->Color . " " . $CurrentUser->Badges[0]->Class; ?> "></i>
+                        icone
+                    </a>
+                </div>
+                <div class="ui modal">
+                    <?php foreach ($CurrentUser->Badges as &$key) {
+                        echo "<a > <i class='ui icon $key->Class $key->Color circular inverted '></i> </a>";
+                    } ?>
                 </div>
             </div>
             <button type="submit" class="ui button primary basic">Enviar</button>

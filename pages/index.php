@@ -80,7 +80,7 @@ UserIsNotLoggedIn();
         <div class="ui middle aligned stackable grid container">
             <div class="row">
                 <div class="eight wide column">
-                    <h3 class="ui header">We Help Companies and Companions</h3>
+                    <h3 class="ui header">NEIN NEIN NEIN NEIN NEIN NEIN</h3>
                     <p>We can give your company superpowers to do things that they never thought possible. Let us
                         delight your customers and empower your needs...through pure data analytics.</p>
                     <h3 class="ui header">We Make Bananas That Can Dance</h3>

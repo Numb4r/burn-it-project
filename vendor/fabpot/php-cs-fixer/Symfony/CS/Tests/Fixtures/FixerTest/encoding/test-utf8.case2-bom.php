@@ -1,4 +1,4 @@
-﻿abc
+abc
 <?php
 
 echo 'ą';

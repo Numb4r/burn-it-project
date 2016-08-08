@@ -1,9 +1,9 @@
 <?php
 
 
-$servername = "10.142.0.3";
-$username = "redbaty";
-$password = "88134165";
+$servername = "localhost";
+$username = "root";
+$password = "";
 $dbname = "burnit";
 
 function OpenCom()

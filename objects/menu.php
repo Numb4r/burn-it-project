@@ -45,7 +45,7 @@ $CurrentUser = new User(GetCurrentUserID());
                         <span class="text">Notificação 1</span>
                     </div>
                     <div class="item">
-                        <span class="text">Notificação 2</span>
+                        <span class="text">PAU NO SEU CU</span>
                     </div>
                 </div>
             </button>

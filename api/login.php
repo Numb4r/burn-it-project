@@ -15,7 +15,7 @@ UserIsNotLoggedIn();
 
 function LogIn($u, $p)
 {
-    $password = md5($p);
+    $password = $p;
     $result = new User("");
     $result->GetInfoFromLogin($u, $password);
 

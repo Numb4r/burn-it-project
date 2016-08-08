@@ -9,7 +9,9 @@
 require_once '../objects/users.php';
 require_once '../cfg/userfnc.php';
 
-UserIsNotLoggedIn();
+if(User::IsLoggedIn()){
+    header("Location: dashboard.php");
+}
 
 ?>
 
@@ -93,6 +95,7 @@ UserIsNotLoggedIn();
     </div>
 </div>
 
+<script src="../scripts/md5.js"></script>
 <script src="../scripts/register.js"></script>
 </body>
 

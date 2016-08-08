@@ -6,11 +6,12 @@
  * Time: 23:12
  */
 
-require_once '../objects/users.php';;
-
+require_once '../objects/users.php';
 require_once '../cfg/userfnc.php';
 
-UserIsNotLoggedIn();
+if (User::IsLoggedIn()) {
+    header("Location: dashboard.php");
+}
 
 ?>
 
@@ -24,8 +25,7 @@ UserIsNotLoggedIn();
     <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.css">
     <link rel="stylesheet" type="text/css" href="../css/login.css">
 
-    <script src="../scripts/jquery.min.js"></script>
-    <script src="../semantic/dist/semantic.js"></script>
+
 </head>
 
 <body>
@@ -37,7 +37,7 @@ UserIsNotLoggedIn();
                 Log-in
             </div>
         </h2>
-        <form class="ui large form" onkeypress="return event.keyCode != 13;" autocomplete="off">
+        <form class="ui large form" autocomplete="off" id="loginForm">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
@@ -51,7 +51,7 @@ UserIsNotLoggedIn();
                         <input type="password" name="password" placeholder="Senha" id="passinput">
                     </div>
                 </div>
-                <div class="ui fluid large basic green button" id="loginBTN">Login</div>
+                <div class="ui fluid large basic green button" id="send">Login</div>
             </div>
 
             <div class="ui error message"></div>
@@ -63,6 +63,10 @@ UserIsNotLoggedIn();
     </div>
 </div>
 
+<script src="../scripts/jquery.min.js"></script>
+<script src="../semantic/dist/semantic.js"></script>
+<script src="../scripts/md5.js"></script>
+
 <script type="text/javascript">
     function submit() {
         $('.ui.form').form('validate form');
@@ -72,7 +76,7 @@ UserIsNotLoggedIn();
             $.post("../api/login.php",
                 {
                     User: $("#emailinput").val(),
-                    Pass: $("#passinput").val()
+                    Pass: md5($("#passinput").val())
                 },
                 function (data, status) {
                     $("#loginBTN").removeClass("loading");
@@ -87,16 +91,14 @@ UserIsNotLoggedIn();
                         $(".ui.form").form('add errors', {
                             email: "A combinação de usuário e senha é inexistente nos nossos servidores.",
                         });
-                        $(".ui.form").form('clear');
+
                     }
-
-
                 });
         }
     }
 
-    $("#loginBTN").click(function () {
-        submit();
+    $("#send").click(function () {
+       submit();
     });
 
     $('.ui.form')
@@ -133,12 +135,6 @@ UserIsNotLoggedIn();
         })
     ;
 
-    $(document).on("keypress", "form", function (event) {
-        if (event.keyCode == 13) {
-            submit();
-        }
-        return event.keyCode;
-    });
 </script>
 </body>
 

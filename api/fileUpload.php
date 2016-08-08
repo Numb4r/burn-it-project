@@ -5,9 +5,11 @@ require_once '../cfg/userfnc.php';
 require_once '../objects/users.php';
 require_once '../objects/log.php';
 
-UserIsLoggedIn();
+if (!User::IsLoggedIn()) {
+    header("Location: login.php");
+}
 
-$CurrentUser = GetCurrentUserInfo();
+$CurrentUser = User::GetCurrentInfo();
 
 class File
 {

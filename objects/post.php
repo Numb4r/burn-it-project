@@ -122,7 +122,7 @@ class Post
     {
         $conn = OpenCom();
 
-        $userpiece = !empty($user) ? "`User`='" . $user . "'": "";
+        $userpiece = !empty($user) ? "`User`=\"" . $user . "\"": "";
         $postpiece = !empty($searchstr) ? "`Title` LIKE '%" . $searchstr . "%'" : "";
         $where = "WHERE ";
         if (empty($userpiece) && empty($postpiece)) {

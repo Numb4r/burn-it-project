@@ -8,5 +8,8 @@
 
 
 require_once '../objects/postQuery.php';
-$j = new PostQuery("", "");
+
+$userStr = isset($_GET['u']) ? $_GET['u'] : "";
+
+$j = new PostQuery("", $userStr);
 echo $j->getDefaultHtml();

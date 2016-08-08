@@ -14,7 +14,7 @@ class QueryResponse
     public $Value;
     public $SQLString;
 
-    public function __construct($value, $sqlstr = "")
+    public function __construct($value, $sqlstr = "", $error = "")
     {
         if ($value === false) {
             $this->Success = false;
@@ -24,6 +24,7 @@ class QueryResponse
 
         $this->Value = $value;
         $this->SQLString = $sqlstr;
+        $this->Error = $error;
     }
 }
 
@@ -70,9 +71,9 @@ class SQLSyntax
 
 class MariaDB
 {
-    public static $host = "10.142.0.3";
-    public static $username = "redbaty";
-    public static $password = "88134165";
+    public static $host = "localhost";
+    public static $username = "root";
+    public static $password = "";
     public static $database = "burnit";
 
 
@@ -96,7 +97,10 @@ class MariaDB
     public static function Query($querystring)
     {
         $conn = self::Open();
-        return new QueryResponse($conn->query($querystring), $querystring);
+
+        $conn->set_charset("utf8");
+        $connQuery = $conn->query($querystring);
+        return new QueryResponse($connQuery, $querystring, print_r($conn->error_list,true));
     }
 
     /**

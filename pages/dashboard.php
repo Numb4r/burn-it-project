@@ -10,22 +10,16 @@ require_once '../cfg/userfnc.php';
 require_once '../objects/users.php';
 require_once '../objects/postQuery.php';
 
-UserIsLoggedIn();
-
-$CurrentUser = new User(GetCurrentUserID());
-$Hasverifarg = false;
-
-if (isset($_GET["verif"]) && !empty($_GET["verif"])) {
-    $Hasverifarg = true;
+if (!User::IsLoggedIn()) {
+    header("Location: login.php");
 }
 
-if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
-    //header("Location: loginerror.php");
-} else if ($Hasverifarg) {
+$CurrentUser = new User(GetCurrentUserID());
+
+if (isset($_GET["verif"]) && !empty($_GET["verif"])) {
     $key = $_GET["verif"];
     $CurrentUser->ValidateEmail($key);
 }
-
 ?>
 
 
@@ -38,6 +32,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
 
     <link rel="stylesheet" type="text/css" href="../semantic/dist/semantic.css">
     <link rel="stylesheet" type="text/css" href="../css/dashboard.css">
+
     <script src="../scripts/jquery.min.js"></script>
     <script src="../react/browser.min.js"></script>
     <script src="https://fb.me/react-15.2.1.min.js"></script>
@@ -60,7 +55,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
 <div class="ui modal email">
 
     <div class="header">
-        Verficação do e-mail
+        Verificação do e-mail
     </div>
     <div class="image content">
         <div class="ui medium image">
@@ -87,7 +82,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
 <div id="menu"></div>
 
 <!-- Main Content -->
-<div class="ui text container" style="padding-top: 8em;">
+<div class="ui text container" style="padding-top: 80px;">
     <div class="ui segment basic">
 
         <!-- Side user menu-->
@@ -127,13 +122,19 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
                             <script type="text/babel">
                                 var UserDescription = React.createClass({
                                     getInitialState: function () {
-
                                         var result = this.props.children;
-
-                                        return {
-                                            editing: false,
-                                            hover: false,
-                                            desc: result
+                                        if(result != null) {
+                                            return {
+                                                editing: false,
+                                                hover: false,
+                                                desc: result
+                                            }
+                                        }else{
+                                            return {
+                                                editing: false,
+                                                hover: false,
+                                                desc: "Adicione uma descrição"
+                                            }
                                         }
                                     },
 
@@ -228,7 +229,6 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
                                 ReactDOM.render(
                                     <UserDescription><?php echo $CurrentUser->Description ?></UserDescription>, document.getElementById('userDesc'));
                             </script>
-
                         </div>
                     </div>
                     <div class="extra content">
@@ -257,6 +257,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
             </div>
         </div>
 
+        <!-- Side friends menu-->
         <div class="ui right attached very close rail" style="height: 100%">
             <div class="ui sticky">
 
@@ -278,6 +279,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
             </div>
         </div>
 
+        <!-- Upload loading indicator -->
         <div id="loader" class="ui basic segment hiddenloader">
             <div class="ui active loader"></div>
         </div>
@@ -352,8 +354,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
         }
     }
     function SendVerificationEmail() {
-        $.post("../api/emailvalidation.php", {}, function (data, success) {
-        });
+        $.ajax({url: "../api/v2/api.php/user/sendemail/"});
     }
     function SubmitPhoto() {
 
@@ -370,7 +371,7 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function () {
+                success: function (data) {
                     $('#bodyDimmer').dimmer('hide');
                     window.location.reload(true);
                 },
@@ -458,11 +459,11 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
     $('.ui.dropdown').dropdown({transition: 'fade down'});
     $('.main.menu').visibility({type: 'fixed'});
 
-    $.post("../api/validemail.php",
-        {},
-        function (data, status) {
-            if (data != 1) {
-
+    $.ajax({
+        url: "../api/v2/api.php/user/<?php echo $CurrentUser->ID ?>",
+        success: function (data) {
+            var User = data;
+            if (User["vBool"] != "1") {
                 $('.ui.modal.email')
                     .modal({closable: false}).modal('show')
                 ;
@@ -490,25 +491,26 @@ if ($CurrentUser->vBool == "0" && !$Hasverifarg) {
                     }
                 });
             }
-        });
+        }
+    });
 
     var timeoutId;
     profileImage.hover(function () {
-            if (!timeoutId) {
-                timeoutId = window.setTimeout(function () {
-                    timeoutId = null;
-                    profileImage.dimmer("show");
-                }, 1500);
-            }
-        }, function () {
-            if (timeoutId) {
-                window.clearTimeout(timeoutId);
+        if (!timeoutId) {
+            timeoutId = window.setTimeout(function () {
                 timeoutId = null;
-            }
-            else {
-                profileImage.dimmer("hide");
-            }
-        });
+                profileImage.dimmer("show");
+            }, 1500);
+        }
+    }, function () {
+        if (timeoutId) {
+            window.clearTimeout(timeoutId);
+            timeoutId = null;
+        }
+        else {
+            profileImage.dimmer("hide");
+        }
+    });
     Update();
 </script>
 
